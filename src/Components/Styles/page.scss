@@ -1,0 +1,5 @@
+@import "App";
+
+.page__small {
+  @extend .box, .card;
+}
