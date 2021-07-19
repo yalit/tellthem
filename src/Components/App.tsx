@@ -5,12 +5,18 @@ import {ThemeProvider} from '@material-ui/core/styles';
 import {useAppTheme} from "../Helpers/Theme";
 import PageList from "./PageList";
 import {Page} from "../Helpers/Page";
+import PagesLocalStorageProvider from "../Providers/PagesLocalStorageProvider";
+import StorageProviderInterface from "../Providers/StorageProviderInterface";
 
 function App() {
-    const [pages, usePages] = useState<Page[]>([])
+    const mainKey = 'tellThem__pages'
+    const localStorage:StorageProviderInterface = new PagesLocalStorageProvider()
+    const [pages, usePages] = useState<Page[]>(localStorage.get(mainKey))
 
     const AddPage = (page: Page) => {
-        usePages([...pages].concat([page]));
+        const newPages = [...pages].concat([page]);
+        localStorage.save(mainKey, newPages)
+        usePages(newPages);
         return true;
     }
 
