@@ -14,7 +14,7 @@ class PagesLocalStorageProvider implements ProviderInterface {
         const localItem = localStorage.getItem(itemId)
         if (localItem) return JSON.parse(localStorage.getItem(itemId) as string);
 
-        localStorage.setItem(itemId, JSON.stringify([]))
+        this.save(itemId, [])
         return []
     }
 
