@@ -1,7 +1,7 @@
 import React from "react";
 import AddPage from "./AddPage";
 import {Page} from "../Helpers/Page";
-import {PageSmall} from "./Page";
+import {PageDisplay} from "./Page";
 
 export type PageListProps = {
     pages: Page[],
@@ -14,7 +14,7 @@ const PageList:React.FC<PageListProps> = ({pages, onAddPage, onEditPage, onDelet
     return (
       <React.Fragment>
           <AddPage key={"addPage"} onAdd={(page: Page) => onAddPage(page)}/>
-          {pages.map(page => <PageSmall key={page.id} page={page} />)}
+          {pages.map(page => <PageDisplay key={page.id} page={page} />)}
       </React.Fragment>
     );
 };

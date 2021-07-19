@@ -1,5 +1,45 @@
 @import "App";
 
-.page__small {
+.page__display {
   @extend .box, .card;
+  position: relative;
+  min-height: 80px;
+  padding: 0;
+  display: grid;
+  grid-template-columns: 1fr 3fr;
+  &.page__action__edit {
+    width: 125vw;
+    margin-left: 5vw;
+  }
+  &.page__action__edit {
+    width: 125vw;
+    margin-left: -30vw;
+  }
+  .action__edit {
+    border-bottom-left-radius: 5px;
+    border-top-left-radius: 5px;
+    background: darkorange;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  .page__display__img {
+    border-top-left-radius: 5px;
+    border-bottom-left-radius: 5px;
+    background: #fff no-repeat center center fixed;
+    background-size: cover;
+  }
+  .page__display__content {
+    padding: 5px;
+  }
+  .page__display__actions {
+    position: absolute;
+    right: 0;
+    top: 0;
+    padding: 5px;
+    span {
+      margin-left: 5px;
+      cursor: pointer;
+    }
+  }
 }

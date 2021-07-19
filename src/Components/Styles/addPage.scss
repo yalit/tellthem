@@ -10,6 +10,7 @@
   align-items: center;
   justify-content: center;
   transition: ease-in-out 2s;
+  cursor: pointer;
   &.form__opened {
     height: inherit;
   }
