@@ -1,18 +1,20 @@
-import React, {useState} from "react";
+import React from "react";
 import AddPage from "./AddPage";
 import {Page} from "../Helpers/Page";
 import {PageSmall} from "./Page";
 
 export type PageListProps = {
-    pages: Page[] | undefined,
-    onAddPage: (page: Page) => boolean
+    pages: Page[],
+    onAddPage: (page: Page) => boolean,
+    onEditPage: (page: Page) => boolean,
+    onDeletePage: (page: Page) => boolean
 }
 
-const PageList:React.FC<PageListProps> = ({pages, onAddPage}) => {
+const PageList:React.FC<PageListProps> = ({pages, onAddPage, onEditPage, onDeletePage}) => {
     return (
       <React.Fragment>
           <AddPage key={"addPage"} onAdd={(page: Page) => onAddPage(page)}/>
-          {pages && pages.map(page => <PageSmall key={page.id} page={page} />)}
+          {pages.map(page => <PageSmall key={page.id} page={page} />)}
       </React.Fragment>
     );
 };
