@@ -7,8 +7,9 @@ type PageSmallProps = {
 }
 
 export const PageSmall:React.FC<PageSmallProps> = ({page}) => {
-
     return (
-        <div className={'page__small'}>{page.title}</div>
+        <div className={'page__small'}>
+            <div className="page__small__title">{page.title}</div>
+        </div>
     )
 }
