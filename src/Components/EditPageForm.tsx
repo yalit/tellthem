@@ -4,10 +4,11 @@ import {createPage, editPage, Page, PageData} from "../Helpers/Page";
 type EditPageFormProps = {
     onSubmit: EventHandler<any>,
     onCancel: EventHandler<any>,
+    onDelete?: EventHandler<any>
     page?: Page
 }
 
-const EditPageForm:React.FC<EditPageFormProps> = ({onSubmit, onCancel, page}) => {
+const EditPageForm:React.FC<EditPageFormProps> = ({onSubmit, onCancel, page, onDelete}) => {
     const formRef:Ref<any> = useRef()
     const [title, useTitle] = useState<string>((page && page.title) || '')
     const [description, useDescription] = useState<string>((page && page.description) || '')
@@ -38,6 +39,12 @@ const EditPageForm:React.FC<EditPageFormProps> = ({onSubmit, onCancel, page}) =>
         reader.readAsDataURL(formData.get('formPage__data__img') as Blob);
     }
 
+    const DeletePage = (e: any) => {
+        if (onDelete) {
+            onDelete(page)
+        }
+    }
+
     return (
         <form ref={formRef}>
             <label htmlFor="formPage__data__title">Title</label>
@@ -48,6 +55,7 @@ const EditPageForm:React.FC<EditPageFormProps> = ({onSubmit, onCancel, page}) =>
             <input type="text" name="formPage__data__description" value={description} onChange={UpdateDescription} required/>
             <input type="submit" name={"Cancel"} value={"Cancel"} onClick={onCancel}/>
             <input type="submit" name={"Submit"} value={page ? "Edit" : "Add"} onClick={SubmitForm}/>
+            {page && <input type="submit" name={"Delete"} value={"Delete"} onClick={DeletePage}/>}
         </form>
 
     )

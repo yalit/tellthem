@@ -29,9 +29,14 @@ export const PageDisplay:React.FC<PageDisplayProps> = ({page, onEditPage, onDele
         ToggleForm()
     }
 
+    const onDeleteEditForm = (page: Page) => {
+        onDeletePage(page);
+        ToggleForm()
+    }
+
     return (
         <div ref={pageRef} className={'page__display' + (displayForm ? ' edit__page':'')}>
-            {displayForm ? <EditPageForm onSubmit={onSubmitEditForm} onCancel={ToggleForm} page={page} /> :
+            {displayForm ? <EditPageForm onSubmit={onSubmitEditForm} onCancel={ToggleForm} onDelete={onDeleteEditForm} page={page} /> :
             (
                 <React.Fragment>
                     <div className="page__display__img" style={imgStyle} onClick={ToggleForm}></div>

@@ -27,7 +27,8 @@ function App() {
     }
 
     const DeletePage = (page: Page) => {
-        console.log(page)
+        const editedPages = pages.filter(p => p.id !== page.id)
+        RefreshDisplay(editedPages)
         return true
     }
 
