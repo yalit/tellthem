@@ -14,7 +14,7 @@ const PageList:React.FC<PageListProps> = ({pages, onAddPage, onEditPage, onDelet
     return (
       <React.Fragment>
           <AddPage key={"addPage"} onAdd={(page: Page) => onAddPage(page)}/>
-          {pages.map(page => <PageDisplay key={page.id} page={page} />)}
+          {pages.map(page => <PageDisplay key={page.id} page={page} onEditPage={onEditPage} onDeletePage={onDeletePage}/>)}
       </React.Fragment>
     );
 };

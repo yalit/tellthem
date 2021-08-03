@@ -1,5 +1,5 @@
 import React, {MouseEvent, MouseEventHandler, useState} from "react";
-import './Styles/addPage.scss';
+import './Styles/addEditPage.scss';
 import {Page} from "../Helpers/Page";
 import EditPageForm from "./EditPageForm";
 

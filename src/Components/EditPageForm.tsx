@@ -1,5 +1,5 @@
 import React, {EventHandler, Ref, useRef, useState} from 'react';
-import {createPage, Page} from "../Helpers/Page";
+import {createPage, editPage, Page, PageData} from "../Helpers/Page";
 
 type EditPageFormProps = {
     onSubmit: EventHandler<any>,
@@ -26,22 +26,28 @@ const EditPageForm:React.FC<EditPageFormProps> = ({onSubmit, onCancel, page}) =>
         const formData = new FormData(formRef.current);
 
         reader.onload = function () {
-            const newPage = createPage({title: formData.get('addPage__title') as string, description: formData.get('addPage__title') as string, img: reader.result as string})
-            onSubmit(newPage)
+            const pageData: PageData = {title: formData.get('formPage__data__title') as string, description: formData.get('formPage__data__description') as string, img: reader.result as string}
+            if (page) {
+                const editedPage = editPage(page, pageData)
+                onSubmit(editedPage)
+            } else {
+                const newPage = createPage(pageData)
+                onSubmit(newPage)
+            }
         }
-        reader.readAsDataURL(formData.get('addPage__img') as Blob);
+        reader.readAsDataURL(formData.get('formPage__data__img') as Blob);
     }
 
     return (
         <form ref={formRef}>
-            <label htmlFor="addPage__title">Title</label>
-            <input type="text" name="addPage__title" value={title} onChange={UpdateTitle} required/>
-            <label htmlFor="addPage__img">Image</label>
-            <input type="file" name="addPage__img" required />
-            <label htmlFor="addPage__description">Description</label>
-            <input type="text" name="addPage__description" value={description} onChange={UpdateDescription} required/>
+            <label htmlFor="formPage__data__title">Title</label>
+            <input type="text" name="formPage__data__title" value={title} onChange={UpdateTitle} required/>
+            <label htmlFor="formPage__data__img">Image</label>
+            <input type="file" name="formPage__data__img" required />
+            <label htmlFor="formPage__data__description">Description</label>
+            <input type="text" name="formPage__data__description" value={description} onChange={UpdateDescription} required/>
             <input type="submit" name={"Cancel"} value={"Cancel"} onClick={onCancel}/>
-            <input type="submit" name={"Add"} value={"Add"} onClick={SubmitForm}/>
+            <input type="submit" name={"Submit"} value={page ? "Edit" : "Add"} onClick={SubmitForm}/>
         </form>
 
     )

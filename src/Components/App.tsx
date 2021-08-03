@@ -15,19 +15,25 @@ function App() {
 
     const AddPage = (page: Page) => {
         const newPages = [...pages].concat([page]);
-        localStorage.save(mainKey, newPages)
-        usePages(newPages);
+        RefreshDisplay(newPages)
         return true;
     }
 
     const EditPage = (page: Page) => {
         console.log(page)
+        const editedPages = pages.map(p => (p.id === page.id) ? page : p)
+        RefreshDisplay(editedPages)
         return true
     }
 
     const DeletePage = (page: Page) => {
         console.log(page)
         return true
+    }
+
+    const RefreshDisplay = (pages: Array<Page>) => {
+        localStorage.save(mainKey, pages)
+        usePages(pages);
     }
 
     return (

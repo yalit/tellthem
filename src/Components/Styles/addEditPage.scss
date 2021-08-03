@@ -1,23 +1,17 @@
 @import "App";
 
-.add__page {
+.add__page, .edit__page {
   @extend .box, .card;
-  height: 4rem;
   font-size: 2rem;
   font-weight: bold;
   line-height: 1.5;
-  display: flex;
+  display: flex !important;
   align-items: center;
   justify-content: center;
-  transition: ease-in-out 2s;
   cursor: pointer;
-  &.form__opened {
-    height: inherit;
-  }
   form {
     margin: 0;
     font-size: 1.2rem;
-
     input {
       margin-bottom: 2rem;
       width: 100%;

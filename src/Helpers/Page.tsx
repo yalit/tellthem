@@ -1,6 +1,6 @@
 const uniqid = require('uniqid');
 
-export type PageProps = Readonly<{
+export type PageData = Readonly<{
     title: string,
     img: string,
     description?: string
@@ -12,14 +12,23 @@ export class Page {
     img: string
     description: string | undefined
 
-    constructor(data: PageProps){
+    constructor(data: PageData){
         this.id = uniqid();
-        this.title = data.title;
+        this.title = data.title
         this.img = data.img
         this.description = data.description
     }
 }
 
-export function createPage(data: PageProps): Page {
+export function createPage(data: PageData): Page {
     return new Page(data)
+}
+
+export function editPage(page:Page, data: PageData): Page {
+    page.title = data.title
+    page.description = data.description
+    if (data.img) {
+        page.img = data.img
+    }
+    return page;
 }
