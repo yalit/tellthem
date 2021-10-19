@@ -1,0 +1,51 @@
+@import "App";
+@import "variables";
+
+#slide-list {
+  width: 95vw;
+  margin: 5rem auto 0;
+  display: flex;
+  gap: 2rem;
+  .slide-cover {
+    @extend .box;
+    position: relative;
+    width: 350px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    .slide-cover--title, .slide-cover--add {
+      font-weight: bold;
+      font-size: 2rem;
+    }
+    .slide-cover--add {
+      cursor: pointer;
+      .slide-cover--add--button {
+        position: relative;
+        width: 100%;
+        height: 2rem;
+        &:before, &:after {
+          position: absolute;
+          left: calc(50% - 2.5px);
+          content: ' ';
+          height: 2rem;
+          width: 5px;
+          background-color: $text-main-color;
+        }
+        &:before {
+          transform: rotate(90deg);
+        }
+      }
+    }
+    .slide-cover--delete {
+      cursor: pointer;
+      position: absolute;
+      right: 1rem;
+      top: 1rem;
+      font-size: 1.3rem;
+      color: $delete-color
+    }
+  }
+}

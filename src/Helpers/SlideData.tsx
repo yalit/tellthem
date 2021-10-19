@@ -1,25 +1,25 @@
 const uniqid = require('uniqid');
 
-export type PageProps = Readonly<{
+export type SlideProps = Readonly<{
     title: string,
-    img: string,
     description?: string
+    template: string
 }>
 
-export class Page {
+export class SlideData {
     id: string;
     title: string
-    img: string
     description: string | undefined
+    template: string
 
-    constructor(data: PageProps){
+    constructor(data: SlideProps){
         this.id = uniqid();
         this.title = data.title;
-        this.img = data.img
         this.description = data.description
+        this.template = data.template
     }
 }
 
-export function createPage(data: PageProps): Page {
-    return new Page(data)
+export function createSlide(data: SlideProps): SlideData {
+    return new SlideData(data)
 }

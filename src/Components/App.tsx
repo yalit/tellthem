@@ -1,41 +1,42 @@
 import React, {useState} from 'react';
 import './Styles/App.scss';
 import Header from "./Header";
-import {ThemeProvider} from '@material-ui/core/styles';
-import {useAppTheme} from "../Helpers/Theme";
-import PageList from "./PageList";
-import {Page} from "../Helpers/Page";
-import PagesLocalStorageProvider from "../Providers/PagesLocalStorageProvider";
+import SlidesLocalStorageProvider from "../Providers/SlidesLocalStorageProvider";
 import StorageProviderInterface from "../Providers/StorageProviderInterface";
+import AppContent from "./AppContent";
+import {SlideData} from "../Helpers/SlideData";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
+
+library.add(faTrash)
 
 function App() {
     const mainKey = 'tellThem__pages'
-    const localStorage:StorageProviderInterface = new PagesLocalStorageProvider()
-    const [pages, usePages] = useState<Page[]>(localStorage.get(mainKey))
+    const localStorage:StorageProviderInterface = new SlidesLocalStorageProvider()
+    const [slides, useSlides] = useState<SlideData[]>(localStorage.get(mainKey))
 
-    const AddPage = (page: Page) => {
-        const newPages = [...pages].concat([page]);
+    const AddPage = (page: SlideData) => {
+        const newPages = [...slides].concat([page]);
         localStorage.save(mainKey, newPages)
-        usePages(newPages);
+        useSlides(newPages);
         return true;
     }
 
-    const EditPage = (page: Page) => {
+    const EditPage = (page: SlideData) => {
         console.log(page)
         return true
     }
 
-    const DeletePage = (page: Page) => {
+    const DeletePage = (page: SlideData) => {
         console.log(page)
         return true
     }
 
     return (
         <React.Fragment>
-            <ThemeProvider theme={useAppTheme()}>
-                <Header/>
-                <PageList pages={pages} onAddPage={AddPage} onEditPage={EditPage} onDeletePage={DeletePage}/>
-            </ThemeProvider>
+            <Header/>
+            <AppContent slides={slides} onAddPage={AddPage} onEditPage={EditPage} onDeletePage={DeletePage}/>
         </React.Fragment>
     );
 }
