@@ -1,7 +1,8 @@
 @import "App";
+@import "variables";
 
 #header {
-  height: 100px;
+  height: $header-height;
   display: flex;
   align-items: center;
   justify-content: center;

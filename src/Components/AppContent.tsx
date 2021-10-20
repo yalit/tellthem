@@ -1,20 +1,19 @@
 import React from "react";
-import {SlideData} from "../Helpers/SlideData";
+import {createSlide, SlideData} from "../Helpers/SlideData";
 import './Styles/Slide.scss';
 import SlideCover from "./SlideCover";
 
 export type AppContentProps = {
     slides: SlideData[],
-    onAddPage: (slide: SlideData) => boolean,
-    onEditPage: (slide: SlideData) => boolean,
-    onDeletePage: (slide: SlideData) => boolean
+    addPage: (slide: SlideData) => void,
+    editPage: (slide: SlideData) => void,
+    deletePage: (slide: SlideData) => void
 }
 
 export const DISPLAY_LIST = 'list'
 export const DISPLAY_DETAIL = 'detail'
 
 type AppContentState = {
-    slides: SlideData[],
     display: "list" | "detail"
     detailSlide: SlideData | null
 }
@@ -23,7 +22,6 @@ class AppContent extends React.Component<AppContentProps, AppContentState> {
     constructor(props: AppContentProps) {
         super(props);
         this.state = {
-            slides: props.slides,
             display: DISPLAY_LIST,
             detailSlide: null
         }
@@ -36,8 +34,11 @@ class AppContent extends React.Component<AppContentProps, AppContentState> {
 
     displayNewSlide() {
         console.log('display new slide')
+        const slide = createSlide({title: "", description: "", template:""})
+        this.props.addPage(slide)
         this.setState({
             display: DISPLAY_DETAIL,
+            detailSlide: slide
         })
     }
 
@@ -51,6 +52,7 @@ class AppContent extends React.Component<AppContentProps, AppContentState> {
 
     deleteExistingSlide(slide: SlideData) {
         console.log('deletion of slide : ' + slide.title)
+        this.props.deletePage(slide)
     }
 
     displayList (): boolean {
@@ -62,8 +64,7 @@ class AppContent extends React.Component<AppContentProps, AppContentState> {
             return (
                 <div id="slide-list">
                     <SlideCover key={'slide-id-new'} slide={null} onAdd={this.displayNewSlide} onShow={this.displayExistingSlide} onDelete={this.deleteExistingSlide} />
-                    <SlideCover key={'slide-id-test'} slide={{id:"oiu", title: "Un super titre", description: "", template: ""}} onAdd={this.displayNewSlide} onShow={this.displayExistingSlide} onDelete={this.deleteExistingSlide} />
-                    {/*{this.state.slides.map(slide => <SlideCover key={'slide-id-'+slide.id} slide={slide} onAdd={this.displayNewSlide} onShow={this.displayExistingSlide} onDelete={this.deleteExistingSlide} />)}*/}
+                    {this.props.slides.map(slide => <SlideCover key={'slide-id-'+slide.id} slide={slide} onAdd={this.displayNewSlide} onShow={this.displayExistingSlide} onDelete={this.deleteExistingSlide} />)}
                 </div>
             )
         } else {

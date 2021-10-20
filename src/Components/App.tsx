@@ -11,32 +11,43 @@ import {faTrash} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTrash)
 
-function App() {
+function App(){
     const mainKey = 'tellThem__pages'
     const localStorage:StorageProviderInterface = new SlidesLocalStorageProvider()
     const [slides, useSlides] = useState<SlideData[]>(localStorage.get(mainKey))
 
-    const AddPage = (page: SlideData) => {
-        const newPages = [...slides].concat([page]);
-        localStorage.save(mainKey, newPages)
-        useSlides(newPages);
-        return true;
+    const AddPage = (slide: SlideData) => {
+        const newSlides = [...slides].concat([slide]);
+        UpdateSlidesContext(newSlides)
     }
 
-    const EditPage = (page: SlideData) => {
-        console.log(page)
-        return true
+    const EditPage = (updatedSlide: SlideData) => {
+        console.log("Update slide : " + updatedSlide)
+        const updateSlides = [...slides];
+        updateSlides.forEach((slide, i) => {
+            if (slide.id === updatedSlide.id) {
+                updateSlides[i] = updatedSlide
+            }
+        })
+        UpdateSlidesContext(updateSlides)
     }
 
-    const DeletePage = (page: SlideData) => {
-        console.log(page)
-        return true
+    const DeletePage = (slide: SlideData) => {
+        console.log("Delete slide : " + slide)
+        const updatedSlides = [...slides].filter(tempSlide => slide.id !== tempSlide.id)
+
+        UpdateSlidesContext([...updatedSlides])
+    }
+
+    const UpdateSlidesContext = (newSlides: SlideData[]): void => {
+        localStorage.save(mainKey, newSlides)
+        useSlides(newSlides);
     }
 
     return (
         <React.Fragment>
             <Header/>
-            <AppContent slides={slides} onAddPage={AddPage} onEditPage={EditPage} onDeletePage={DeletePage}/>
+            <AppContent slides={slides} addPage={AddPage} editPage={EditPage} deletePage={DeletePage}/>
         </React.Fragment>
     );
 }
