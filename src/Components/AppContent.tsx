@@ -2,6 +2,7 @@ import React from "react";
 import {createSlide, SlideData} from "../Helpers/SlideData";
 import './Styles/Slide.scss';
 import SlideCover from "./SlideCover";
+import SlideDisplay from "./SlideDisplay";
 
 export type AppContentProps = {
     slides: SlideData[],
@@ -30,11 +31,12 @@ class AppContent extends React.Component<AppContentProps, AppContentState> {
         this.displayExistingSlide = this.displayExistingSlide.bind(this)
         this.deleteExistingSlide = this.deleteExistingSlide.bind(this)
         this.displayList = this.displayList.bind(this)
+        this.canDisplayList = this.canDisplayList.bind(this)
     }
 
     displayNewSlide() {
         console.log('display new slide')
-        const slide = createSlide({title: "", description: "", template:""})
+        const slide = createSlide({title: "<New Title To Update>"})
         this.props.addPage(slide)
         this.setState({
             display: DISPLAY_DETAIL,
@@ -55,12 +57,19 @@ class AppContent extends React.Component<AppContentProps, AppContentState> {
         this.props.deletePage(slide)
     }
 
-    displayList (): boolean {
+    displayList() {
+        this.setState({
+            display: DISPLAY_LIST,
+            detailSlide: null
+        })
+    }
+
+    canDisplayList (): boolean {
         return this.state.display === DISPLAY_LIST;
     }
 
     render() {
-        if (this.displayList()) {
+        if (this.canDisplayList()) {
             return (
                 <div id="slide-list">
                     <SlideCover key={'slide-id-new'} slide={null} onAdd={this.displayNewSlide} onShow={this.displayExistingSlide} onDelete={this.deleteExistingSlide} />
@@ -69,7 +78,7 @@ class AppContent extends React.Component<AppContentProps, AppContentState> {
             )
         } else {
             return (
-                <div className={""}>Un display de slide...</div>
+                <SlideDisplay slide={this.state.detailSlide as SlideData} onClose={this.displayList}/>
             )
         }
     }

@@ -7,9 +7,10 @@ import AppContent from "./AppContent";
 import {SlideData} from "../Helpers/SlideData";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faTrash} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faTimes} from "@fortawesome/free-solid-svg-icons";
 
 library.add(faTrash)
+library.add(faTimes)
 
 function App(){
     const mainKey = 'tellThem__pages'

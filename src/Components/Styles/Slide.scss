@@ -1,9 +1,12 @@
 @import "App";
 @import "variables";
 
+$content-margin-padding: 5rem;
+
+
 #slide-list {
   width: 95vw;
-  margin: 5rem auto 0;
+  margin: $content-margin-padding auto 0;
   display: flex;
   gap: 2rem;
   .slide-cover {
@@ -19,9 +22,9 @@
     .slide-cover--title, .slide-cover--add {
       font-weight: bold;
       font-size: 2rem;
+      cursor: pointer;
     }
     .slide-cover--add {
-      cursor: pointer;
       .slide-cover--add--button {
         position: relative;
         width: 100%;
@@ -40,12 +43,52 @@
       }
     }
     .slide-cover--delete {
-      cursor: pointer;
-      position: absolute;
-      right: 1rem;
-      top: 1rem;
+      @extend .top-right-button;
       font-size: 1.3rem;
       color: $delete-color
     }
+  }
+}
+
+#slide-display {
+  position: relative;
+  display: flex;
+  height: calc(100vh - #{$header-height});
+  margin: 0;
+
+  $sidebar-min-width: 400px;
+
+  .slide-display--sidebar {
+    position: relative;
+    margin: 0;
+    height: 100%;
+    width: 20vw;
+    min-width: $sidebar-min-width;
+    padding: $default-padding;
+    .slide-display--sidebar--item {
+      position: relative;
+      .slide-display--sidebar--item--title {
+        font-size: 1.5rem;
+        font-weight: bold;
+      }
+      .slide-display--sidebar--item--content {
+        margin: $default-margin 0 0;
+        select {
+          width: 80%;
+        }
+      }
+    }
+  }
+
+  .slide-display--slide {
+    margin: 0;
+    height: 100%;
+    width: 80vw;
+    min-width: calc(80vw - #{$sidebar-min-width});
+  }
+
+  .slide-display--close {
+    @extend .top-right-button;
+    font-size: 1.5rem;
   }
 }
