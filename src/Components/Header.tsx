@@ -3,7 +3,7 @@ import './Styles/Header.scss';
 
 function Header(){
     return <div id="header">
-        <div className="header--title">Un super titre</div>
+        <div className="header--title">Tell Them All</div>
     </div>;
 }
 

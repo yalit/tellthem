@@ -1,13 +1,12 @@
-import {TemplateData} from "./TemplateData";
-import {Slide} from "@material-ui/core";
 import {SlideBlock} from "./SlideBlock";
+import {TemplateData} from "./TemplateData";
 
 const uniqid = require('uniqid');
 
 export type SlideProps = Readonly<{
     title: string,
     description?: string
-    template?: string,
+    template?: TemplateData,
     blocks: SlideBlock[]
 }>
 
@@ -15,7 +14,7 @@ export class SlideData {
     id: string;
     title: string
     description: string | undefined
-    template: string | undefined
+    template: TemplateData | undefined
     blocks: SlideBlock[] = []
 
     constructor(data: Partial<SlideProps>){

@@ -22,11 +22,11 @@ export default class Blockify {
         return this
     }
 
-    renderAsReact(blocks: Block[], args: renderArgs) {
+    renderAsReact(blocks: Block[], args: renderArgs): Array<any> {
         return this.render(blocks, 'react', args)
     }
 
-    renderAsDom(blocks: Block[], args: renderArgs) {
+    renderAsDom(blocks: Block[], args: renderArgs): Array<any> {
         return this.render(blocks, 'dom', args)
     }
 

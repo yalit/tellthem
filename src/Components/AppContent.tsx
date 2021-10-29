@@ -3,12 +3,11 @@ import {createSlide, SlideData} from "../Helpers/SlideData";
 import './Styles/Slide.scss';
 import SlideCover from "./SlideCover";
 import SlideDisplay from "./SlideDisplay";
+import {AppSlideActionsType, useAppContext} from "../AppContext";
 
 export type AppContentProps = {
     slides: SlideData[],
-    addPage: (slide: SlideData) => void,
-    editPage: (slide: SlideData) => void,
-    deletePage: (slide: SlideData) => void
+    slideActions: AppSlideActionsType
 }
 
 export const DISPLAY_LIST = 'list'
@@ -19,68 +18,53 @@ type AppContentState = {
     detailSlide: SlideData | null
 }
 
-class AppContent extends React.Component<AppContentProps, AppContentState> {
-    constructor(props: AppContentProps) {
-        super(props);
-        this.state = {
-            display: DISPLAY_LIST,
-            detailSlide: null
-        }
+const AppContent = () => {
+    const [appState, useAppState] = React.useState<AppContentState>({display: DISPLAY_LIST, detailSlide:null})
+    const {state, slideActions} = useAppContext()
 
-        this.displayNewSlide = this.displayNewSlide.bind(this)
-        this.displayExistingSlide = this.displayExistingSlide.bind(this)
-        this.deleteExistingSlide = this.deleteExistingSlide.bind(this)
-        this.displayList = this.displayList.bind(this)
-        this.canDisplayList = this.canDisplayList.bind(this)
+    const canDisplayList = () => {
+        return appState.display === DISPLAY_LIST;
     }
 
-    displayNewSlide() {
-        console.log('display new slide')
+    function DisplayNewSlide() {
         const slide = createSlide({title: "<New Title To Update>"})
-        this.props.addPage(slide)
-        this.setState({
+
+        slideActions.addSlide(slide)
+        useAppState({
             display: DISPLAY_DETAIL,
             detailSlide: slide
         })
     }
 
-    displayExistingSlide(slide: SlideData) {
-        console.log('display slide : ' + slide.title)
-        this.setState({
+    function DisplayExistingSlide(slide: SlideData) {
+        useAppState({
             display: DISPLAY_DETAIL,
             detailSlide: slide
         })
     }
 
-    deleteExistingSlide(slide: SlideData) {
-        console.log('deletion of slide : ' + slide.title)
-        this.props.deletePage(slide)
+    function DeleteExistingSlide(slide: SlideData) {
+        slideActions.deleteSlide(slide)
     }
 
-    displayList() {
-        this.setState({
+    function DisplayList() {
+        useAppState({
             display: DISPLAY_LIST,
             detailSlide: null
         })
     }
 
-    canDisplayList (): boolean {
-        return this.state.display === DISPLAY_LIST;
-    }
-
-    render() {
-        if (this.canDisplayList()) {
-            return (
-                <div id="slide-list">
-                    <SlideCover key={'slide-id-new'} slide={null} onAdd={this.displayNewSlide} onShow={this.displayExistingSlide} onDelete={this.deleteExistingSlide} />
-                    {this.props.slides.map(slide => <SlideCover key={'slide-id-'+slide.id} slide={slide} onAdd={this.displayNewSlide} onShow={this.displayExistingSlide} onDelete={this.deleteExistingSlide} />)}
-                </div>
-            )
-        } else {
-            return (
-                <SlideDisplay slide={this.state.detailSlide as SlideData} onClose={this.displayList}/>
-            )
-        }
+    if (canDisplayList()) {
+        return (
+            <div id="slide-list">
+                <SlideCover key={'slide-id-new'} slide={null} onAdd={DisplayNewSlide} onShow={DisplayExistingSlide} onDelete={DeleteExistingSlide} />
+                {state.slides.map(slide => <SlideCover key={'slide-id-'+slide.id} slide={slide} onAdd={DisplayNewSlide} onShow={DisplayExistingSlide} onDelete={DeleteExistingSlide} />)}
+            </div>
+        )
+    } else {
+        return (
+            <SlideDisplay slide={appState.detailSlide as SlideData} onClose={DisplayList} slideActions={slideActions}/>
+        )
     }
 }
 

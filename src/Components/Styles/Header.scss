@@ -2,12 +2,16 @@
 @import "variables";
 
 #header {
-  height: $header-height;
   display: flex;
   align-items: center;
-  justify-content: center;
+  justify-content: flex-start;
+  background-color: #222222;
+  padding: 2rem;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
   .header--title {
     font-size: 2rem;
     font-weight: bold;
+    color: $white
   }
+
 }

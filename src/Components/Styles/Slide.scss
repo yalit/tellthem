@@ -52,29 +52,58 @@ $content-margin-padding: 5rem;
 
 #slide-display {
   position: relative;
-  display: flex;
-  height: calc(100vh - #{$header-height});
   margin: 0;
 
   $sidebar-min-width: 400px;
 
-  .slide-display--sidebar {
+  .slide-display--header {
     position: relative;
     margin: 0;
-    height: 100%;
-    width: 20vw;
-    min-width: $sidebar-min-width;
+    width: 100%;
     padding: $default-padding;
-    .slide-display--sidebar--item {
-      position: relative;
-      .slide-display--sidebar--item--title {
-        font-size: 1.5rem;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    .slide-display--header--part-title, .slide-display--header--part-actions {
+      width: 20%
+    }
+    .slide-display--header--part-blocks {
+      width: 60%;
+    }
+    .slide-display--header--part {
+      margin: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .slide-display--header--part--title {
+        width: 50px;
         font-weight: bold;
       }
-      .slide-display--sidebar--item--content {
-        margin: $default-margin 0 0;
-        select {
-          width: 80%;
+      .slide-display--header--part--data {
+        width: calc(100% - 50px);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        div {
+          margin-right: $default-margin;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+        .slide-display--header--part--title--input {
+          input {
+            margin: 0;
+            border: none;
+            font-size: 1.8rem;
+            padding: $default-padding;
+            background-color: inherit;
+            border-bottom: #ddd 1px solid;
+            &:focus {
+              outline: none;
+            }
+          }
         }
       }
     }
@@ -82,9 +111,22 @@ $content-margin-padding: 5rem;
 
   .slide-display--slide {
     margin: 0;
-    height: 100%;
-    width: 80vw;
-    min-width: calc(80vw - #{$sidebar-min-width});
+    padding: $default-padding;
+    width: 100%;
+    box-sizing: border-box;
+    .slide-display--slide--canvas {
+      position: relative;
+      width: 80%;
+      height: 80vh;
+      margin: 0 auto;
+      border: 1px #eee solid;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border-radius: $default-radius;
+      .canvas--hovering--block {
+
+        border: 1px solid #888;
+      }
+    }
   }
 
   .slide-display--close {

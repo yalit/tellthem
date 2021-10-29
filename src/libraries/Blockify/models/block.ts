@@ -4,15 +4,19 @@
 import {renderArgs, Renderer} from "../renderers/rendererInterface";
 import {TextReactRenderer} from "../renderers/react/TextReactRenderer";
 import {ImageReactRenderer} from "../renderers/react/ImageReactRenderer";
-import Blockify from "../blockify";
+
+export interface BlockPosition {
+    x: number,
+    y: number
+}
 
 export class Block {
     name: string = ''
     displayName: string = ''
-    position: [number, number] = [0,0] //in px
+    position: BlockPosition = {x: 0, y:0} //in px
     positionUnit: 'px' | 'mm' = 'px'
-    width: number = 0
-    height: number = 0
+    width: number = 10
+    height: number = 5
     sizeUnit: 'px' | 'mm' = 'px'
     _content: any
     renderers: Array<Renderer> = []
