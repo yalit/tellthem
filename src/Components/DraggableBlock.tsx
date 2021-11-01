@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {useDrag, useDragLayer, XYCoord} from "react-dnd";
-import {Block} from "../libraries/Blockify/models/block";
-import {useAppContext} from "../AppContext";
+import {Block} from "./Blocks/block";
 import {getEmptyImage} from "react-dnd-html5-backend";
+import {getPosition} from "../Helpers/DOMHelper";
 
 interface DraggableBlockProps {
     children: React.ReactNode,
@@ -36,20 +36,19 @@ export const DraggableBlock:React.FC<DraggableBlockProps> = ({children, block, c
 
 interface DraggableDragLayerProps {
     block: Block | null,
-    parentRefPosition: XYCoord,
+    parentRef: HTMLElement,
     updateBlockPosition: (position: XYCoord) => void
 }
-export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, parentRefPosition, updateBlockPosition}) => {
-    const {blockifier} = useAppContext()
+export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, parentRef, updateBlockPosition}) => {
     const { currentOffset } =
         useDragLayer((monitor) => ({
             currentOffset: monitor.getSourceClientOffset()
         }))
 
     const getItemPosition = (itemOffset: XYCoord | null) => {
-        if (parentRefPosition === null || itemOffset === null || block === null) return
-
-        return {x: itemOffset.x - parentRefPosition.x, y: itemOffset.y - parentRefPosition.y}
+        if (parentRef === null || itemOffset === null || block === null) return
+        //TODO : why not 0 ?
+        return {x: (itemOffset.x - parentRef.clientLeft)/parentRef.clientWidth*100, y: (itemOffset.y - parentRef.clientTop)/parentRef.clientHeight*100}
     }
 
     useEffect(() => {
@@ -61,6 +60,6 @@ export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, pa
     if (block === null) return null
 
     return(
-        blockifier.renderAsReact([block], {class: 'canvas--hovering--block', style: getItemPosition(currentOffset)})[0]
+        block.render('react', {class: 'canvas--hovering--block', style: getItemPosition(currentOffset)})
     )
 }

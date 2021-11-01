@@ -1,20 +1,8 @@
-import {Block, BlockPosition, ImageBlock, TextBlock} from "./models/block";
+import {Block, ImageBlock, TextBlock} from "./block";
+
 const uniqid = require('uniqid')
 
-export interface BlockData {
-    id?: string
-    name: string
-    displayName: string
-    position: BlockPosition
-    positionUnit: 'px' | 'mm' | '%'
-    width: number
-    height: number
-    sizeUnit: 'px' | 'mm'
-    _content: any
-    type: Readonly<string>
-}
-
-export default function getBlock(data: BlockData): Block {
+export default function getBlock(data: Block): Block {
     let block: Block
 
     switch(data.type) {

@@ -1,4 +1,4 @@
-import {Block} from "../models/block";
+import {Block} from "../block";
 
 export type renderArgs = {
     /**

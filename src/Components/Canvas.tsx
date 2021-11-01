@@ -2,11 +2,11 @@ import {SlideData} from "../Helpers/SlideData";
 import React, {useEffect, useRef, useState} from "react";
 import {useDrop, XYCoord} from "react-dnd";
 import {DRAGGABLE_ITEM, DraggableBlock, DraggableDragLayer} from "./DraggableBlock";
-import {Block} from "../libraries/Blockify/models/block";
+import {Block} from "./Blocks/block";
 import {useAppContext} from "../AppContext";
-import {CanvasBlockEditor} from "./CanvasBlockEditor";
+import {CanvasBlockEditor} from "./Editor/CanvasBlockEditor";
 import {getPosition} from "../Helpers/DOMHelper";
-import getBlock, {BlockData} from "../libraries/Blockify/BlockFactory";
+import getBlock from "./Blocks/BlockFactory";
 
 
 interface CanvasProps {
@@ -19,7 +19,6 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
     const canvasRef = useRef<HTMLDivElement>(null)
     const [hoveringBlock, setHoveringBlock] = useState<Block|null>(null)
     const [editedBlock, setEditedBlock] = useState<Block|null>(null)
-    const {blockifier}= useAppContext()
 
     const [{ isActive, item, didDrop }, dropRef] = useDrop(() => ({
         accept: DRAGGABLE_ITEM,
@@ -33,7 +32,7 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
     //update Hovering Block when hover is Active
     useEffect(() => {
         if (isActive && (hoveringBlock === null || hoveringBlock !== item )) {
-            setHoveringBlock(item as Block)
+            setHoveringBlock(getBlock({...item} as Block))
         } else if (!isActive){
             setHoveringBlock(null)
         }
@@ -42,7 +41,7 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
     //set Edited Block based on the drop
     useEffect(() => {
         if (didDrop && hoveringBlock !== null) {
-            const newBlock = getBlock({...hoveringBlock})
+            const newBlock = getBlock(hoveringBlock)
             addBlock(newBlock)
             setNewEditedBlock(newBlock)
         }
@@ -56,7 +55,7 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
     const updateHoveringBlockPosition = (position: XYCoord) => {
         if (hoveringBlock === null) return
 
-        let newHoveringBlock = getBlock({...hoveringBlock})
+        let newHoveringBlock = getBlock(hoveringBlock)
         newHoveringBlock.position = position
         setHoveringBlock(newHoveringBlock)
     }
@@ -66,10 +65,10 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
         setEditedBlock(block)
     }
 
-    const updateEditedBlock = (blockData: Partial<BlockData>) => {
+    const updateEditedBlock = (blockData: Partial<Block>) => {
         if (editedBlock === null) return
 
-        const updatedBlock = getBlock({...editedBlock, ...blockData})
+        const updatedBlock = getBlock({...editedBlock, ...blockData} as Block)
         updateBlock(updatedBlock)
         setEditedBlock(updatedBlock)
     }
@@ -94,12 +93,12 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
                 <div ref={canvasRef} className="slide-display--slide--canvas--container">
                     <DraggableDragLayer
                         block={hoveringBlock}
-                        parentRefPosition={getPosition(canvasRef?.current as HTMLElement)}
+                        parentRef={canvasRef?.current as HTMLElement}
                         updateBlockPosition={updateHoveringBlockPosition}
 
                     />
                     {slide.blocks.map((block, k) => {
-                        return blockifier.renderAsReact(block, {class: 'canvas--slide--block '+(editedBlock === block ? 'edited' : ''), handleBlock: setNewEditedBlock, id: ""+k})
+                        return block.render('react', {class: 'canvas--slide--block '+(editedBlock === block ? 'edited' : ''), handleBlock: setNewEditedBlock, id: ""+k})
                     })}
                 </div>
             </div>

@@ -1,4 +1,5 @@
-import getBlock, {BlockData} from "../BlockFactory";
+import getBlock from "../../Components/Blocks/BlockFactory";
+import {BlockData} from "../../Components/Blocks/block";
 
 describe("Block Factory", () => {
 

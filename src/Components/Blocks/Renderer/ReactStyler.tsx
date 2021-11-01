@@ -1,5 +1,5 @@
 import React from "react";
-import {Block} from "../../models/block";
+import {Block} from "../block";
 
 
 export class ReactStyler {

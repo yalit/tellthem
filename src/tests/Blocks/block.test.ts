@@ -1,5 +1,5 @@
-import {Block, ImageBlock, TextBlock} from "../models/block";
-import {TextReactRenderer} from "../renderers/react/TextReactRenderer";
+import {Block, ImageBlock, TextBlock} from "../../Components/Blocks/block";
+import {TextReactRenderer} from "../../Components/Blocks/Renderer/TextReactRenderer";
 
 
 const fs = require('fs')

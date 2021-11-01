@@ -1,4 +1,4 @@
-import {Block} from "../libraries/Blockify/models/block";
+import {Block} from "../Components/Blocks/block";
 
 const uniqid = require('uniqid');
 

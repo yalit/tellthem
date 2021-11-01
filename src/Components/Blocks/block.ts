@@ -1,9 +1,10 @@
 /**
  * Generic Block model ==> not to be used as-is but must be extended for Specific Blocks
  */
-import {renderArgs, Renderer} from "../renderers/rendererInterface";
-import {TextReactRenderer} from "../renderers/react/TextReactRenderer";
-import {ImageReactRenderer} from "../renderers/react/ImageReactRenderer";
+import {renderArgs, Renderer} from "./Renderer/rendererInterface";
+import {TextReactRenderer} from "./Renderer/TextReactRenderer";
+import {ImageReactRenderer} from "./Renderer/ImageReactRenderer";
+
 const uniqid = require('uniqid')
 
 export interface BlockPosition {
@@ -17,10 +18,10 @@ export class Block {
     type: Readonly<string> = ''
     displayName: string = ''
     position: BlockPosition = {x: 0, y:0} //px by default
-    positionUnit: 'px' | 'mm' | '%' = 'px'
-    width: number = 100 //px by default
-    height: number = 35 //px by default
-    sizeUnit: 'px' | 'mm' = 'px'
+    positionUnit: 'px' | 'mm' | '%' = '%'
+    width: number = 10 //% by default
+    height: number = 10 //% by default
+    sizeUnit: 'px' | 'mm' | '%' = '%'
     _content: any
     renderers: Array<Renderer> = []
 
@@ -48,26 +49,16 @@ export class Block {
     }
 
     getRenderer(type: string): Renderer | null {
-        let renderer: Renderer | null = null
-        this.renderers.forEach(tempRenderer => {
-            if (renderer === null && tempRenderer.supports(type)) {
-                renderer = tempRenderer
-            }
-        })
+        let renderers: Renderer[] = this.renderers.filter(r => r.supports(type))
 
-        return renderer
+        if (renderers.length === 0) return null
+
+        else return renderers[0]
     }
 
     addRenderer(renderer: Renderer): Block {
         this.renderers.push(renderer)
         return this
-    }
-
-    /**
-     * @private
-     */
-    private renderAsDom(args: renderArgs) {
-        return this.render('dom', args)
     }
 
     /**
@@ -136,4 +127,3 @@ export class ImageBlock extends Block {
         })
     }
 }
-

@@ -6,7 +6,7 @@ import './Styles/Slide.scss'
 import {AppSlideActionsType, useAppContext} from "../AppContext";
 import {DraggableBlock} from "./DraggableBlock";
 import {Canvas} from "./Canvas";
-import {Block} from "../libraries/Blockify/models/block";
+import {Block, ImageBlock, TextBlock} from "./Blocks/block";
 
 type SlideDisplayProps = {
     slide: SlideData,
@@ -16,9 +16,7 @@ type SlideDisplayProps = {
 
 function SlideDisplay(props: SlideDisplayProps) {
     const [internalSlide, useInternalSlide] = useState<SlideData>(props.slide)
-    const {blockifier} = useAppContext()
-
-
+    const availableBlocks: Block[] = [new TextBlock(), new ImageBlock()]
 
     const UpdateSlide = (slideData: Partial<SlideData>):void => {
         const updatedSlide = {...internalSlide, ...slideData}
@@ -57,7 +55,7 @@ function SlideDisplay(props: SlideDisplayProps) {
                     </div>
                     <div className="slide-display--header--part slide-display--header--part-blocks">
                         <div className="slide-display--header--part--title">Blocks</div>
-                        <div className="slide-display--header--part--data">{blockifier.blocks.map(block => {
+                        <div className="slide-display--header--part--data">{availableBlocks.map(block => {
                             return (
                                 <DraggableBlock key={block.name} block={block} classname="slide-display--header--block--display">
                                     <div className="slide-display--header--block--title">{block.displayName}</div>

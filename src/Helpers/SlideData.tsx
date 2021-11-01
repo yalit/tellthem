@@ -1,6 +1,6 @@
 import {TemplateData} from "./TemplateData";
-import {Block} from "../libraries/Blockify/models/block";
-import getBlock from "../libraries/Blockify/BlockFactory";
+import {Block} from "../Components/Blocks/block";
+import getBlock from "../Components/Blocks/BlockFactory";
 
 const uniqid = require('uniqid');
 

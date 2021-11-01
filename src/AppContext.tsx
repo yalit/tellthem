@@ -2,7 +2,6 @@ import React, {Context} from "react";
 import {createSlide, SlideData} from "./Helpers/SlideData";
 import StorageProviderInterface from "./Providers/StorageProviderInterface";
 import SlidesLocalStorageProvider from "./Providers/SlidesLocalStorageProvider";
-import Blockify from "./libraries/Blockify/blockify";
 
 /**
  * AppContext Types
@@ -17,8 +16,7 @@ export type AppSlideActionsType = {
 }
 export type AppContextType = {
     state: AppContextProviderType,
-    slideActions: AppSlideActionsType,
-    blockifier: Blockify
+    slideActions: AppSlideActionsType
 }
 
 /**
@@ -41,8 +39,6 @@ export const useAppContext = () => React.useContext(AppContext);
 export const AppContextProvider: React.FC<{children: JSX.Element}> = ({children, ...props}) => {
     const storageKeySlides = mainKey+'slides'
     const [state, setState] = React.useState<AppContextProviderType>({slides: []});
-
-    const blockifier = new Blockify()
 
     const slideActions: AppSlideActionsType = {
         addSlide: (slide: SlideData) => {
@@ -79,7 +75,7 @@ export const AppContextProvider: React.FC<{children: JSX.Element}> = ({children,
     }, []);
 
     return (
-        <AppContext.Provider value={{ state,  slideActions, blockifier}}>
+        <AppContext.Provider value={{ state,  slideActions}}>
             {children}
         </AppContext.Provider>
     );

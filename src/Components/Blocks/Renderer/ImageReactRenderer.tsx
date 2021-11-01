@@ -1,6 +1,6 @@
-import {ImageBlock} from "../../models/block";
+import {ImageBlock} from "../block";
 import {ReactElement} from "react";
-import {renderArgs, Renderer} from "../rendererInterface";
+import {renderArgs, Renderer} from "./rendererInterface";
 
 export class ImageReactRenderer implements Renderer {
     supports(type: string): boolean {

@@ -1,6 +1,6 @@
-import {TextBlock} from "../../models/block";
+import {TextBlock} from "../block";
 import {ReactElement} from "react";
-import {renderArgs, Renderer} from "../rendererInterface";
+import {renderArgs, Renderer} from "./rendererInterface";
 import {ReactStyler} from "./ReactStyler";
 
 export class TextReactRenderer implements Renderer {
