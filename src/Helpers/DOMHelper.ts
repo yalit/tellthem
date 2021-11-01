@@ -3,7 +3,7 @@ export function getPosition(el: HTMLElement) {
     let yPos = 0;
 
     while (el) {
-        if (el.tagName == "BODY") {
+        if (el.tagName === "BODY") {
             // deal with browser quirks with body/window/document and page scroll
             var xScroll = el.scrollLeft || document.documentElement.scrollLeft;
             var yScroll = el.scrollTop || document.documentElement.scrollTop;

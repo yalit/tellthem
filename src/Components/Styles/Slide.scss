@@ -114,17 +114,37 @@ $content-margin-padding: 5rem;
     padding: $default-padding;
     width: 100%;
     box-sizing: border-box;
-    .slide-display--slide--canvas {
+    .slide-display--slide--canvas-editor, .slide-display--slide--canvas {
       position: relative;
       width: 80%;
-      height: 80vh;
+    }
+    .slide-display--slide--canvas-editor {
+      padding: $default-padding;
+      box-sizing: border-box;
+      margin: $default-margin auto;
+    }
+    .slide-display--slide--canvas {
       margin: 0 auto;
+      height: 75vh;
       border: 1px #eee solid;
       box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
       border-radius: $default-radius;
-      .canvas--hovering--block {
-
-        border: 1px solid #888;
+      .slide-display--slide--canvas--container {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        .canvas--hovering--block {
+          border: 1px solid #888;
+        }
+        .canvas--slide--block {
+          cursor: pointer;
+          &.edited {
+            border: 1px solid #eee;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          }
+        }
       }
     }
   }

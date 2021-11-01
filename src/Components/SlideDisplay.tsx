@@ -6,6 +6,7 @@ import './Styles/Slide.scss'
 import {AppSlideActionsType, useAppContext} from "../AppContext";
 import {DraggableBlock} from "./DraggableBlock";
 import {Canvas} from "./Canvas";
+import {Block} from "../libraries/Blockify/models/block";
 
 type SlideDisplayProps = {
     slide: SlideData,
@@ -27,6 +28,21 @@ function SlideDisplay(props: SlideDisplayProps) {
 
     const changeTitle = (title: string) => {
         UpdateSlide({title})
+    }
+
+    const addBlock = (block: Block) => {
+        UpdateSlide({
+            blocks: [...internalSlide.blocks].concat([block])
+        })
+    }
+
+    const updateBlock = (block: Block) => {
+        UpdateSlide({
+            blocks: internalSlide.blocks.map(internalBlock => {
+                if (block.id === internalBlock.id) return block
+                return internalBlock
+            })
+        })
     }
 
     return (
@@ -56,7 +72,7 @@ function SlideDisplay(props: SlideDisplayProps) {
                     </div>
                 </div>
                 <div className="slide-display--slide">
-                    <Canvas slide={internalSlide} addBlock={(block) => console.log(block)} updateBlock={(block) => console.log(block)} />
+                    <Canvas slide={internalSlide} addBlock={addBlock} updateBlock={updateBlock} />
                 </div>
             </div>
         </React.Fragment>

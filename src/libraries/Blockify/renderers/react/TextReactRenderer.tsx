@@ -12,6 +12,12 @@ export class TextReactRenderer implements Renderer {
 
     render(block: TextBlock, args: renderArgs): ReactElement {
         const blockStyle = this.reactStyler.getStyle(block)
-        return <div className={args.class ?? ''} style={{...blockStyle, ...args.style}}>{block.content}</div>
+
+        const clickBlock = () => {
+            if (!args.handleBlock) return
+            args.handleBlock(block, 'edit')
+        }
+
+        return <div key={block.name+'-'+args.id} className={args.class ?? ''} style={{...blockStyle, ...args.style}} onClick={clickBlock}>{block.content}</div>
     }
 }

@@ -1,18 +1,18 @@
-import {SlideBlock} from "./SlideBlock";
+import {Block} from "../libraries/Blockify/models/block";
 
 const uniqid = require('uniqid');
 
 export type TemplateProps = Readonly<{
     name: string,
     description: string,
-    blocks : SlideBlock[]
+    blocks : Block[]
 }>
 
 export class TemplateData {
     id: string;
     name: string = ''
     description: string | undefined
-    blocks: SlideBlock[] = []
+    blocks: Block[] = []
 
     constructor(data: Partial<TemplateProps>){
         this.id = uniqid();

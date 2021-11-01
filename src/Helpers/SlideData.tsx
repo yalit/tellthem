@@ -1,5 +1,6 @@
-import {SlideBlock} from "./SlideBlock";
 import {TemplateData} from "./TemplateData";
+import {Block} from "../libraries/Blockify/models/block";
+import getBlock from "../libraries/Blockify/BlockFactory";
 
 const uniqid = require('uniqid');
 
@@ -7,7 +8,7 @@ export type SlideProps = Readonly<{
     title: string,
     description?: string
     template?: TemplateData,
-    blocks: SlideBlock[]
+    blocks: Block[]
 }>
 
 export class SlideData {
@@ -15,7 +16,7 @@ export class SlideData {
     title: string
     description: string | undefined
     template: TemplateData | undefined
-    blocks: SlideBlock[] = []
+    blocks: Block[] = []
 
     constructor(data: Partial<SlideProps>){
         this.id = uniqid();
@@ -26,5 +27,11 @@ export class SlideData {
 }
 
 export function createSlide(data: Partial<SlideProps>): SlideData {
-    return new SlideData(data)
+    let slideData = new SlideData(data)
+
+    if (data.blocks) {
+        slideData = {...slideData, blocks: data.blocks.map(blockData => getBlock(blockData))}
+    }
+
+    return slideData
 }

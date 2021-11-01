@@ -4,6 +4,7 @@
 import {renderArgs, Renderer} from "../renderers/rendererInterface";
 import {TextReactRenderer} from "../renderers/react/TextReactRenderer";
 import {ImageReactRenderer} from "../renderers/react/ImageReactRenderer";
+const uniqid = require('uniqid')
 
 export interface BlockPosition {
     x: number,
@@ -11,12 +12,14 @@ export interface BlockPosition {
 }
 
 export class Block {
+    id: string = uniqid()
     name: string = ''
+    type: Readonly<string> = ''
     displayName: string = ''
-    position: BlockPosition = {x: 0, y:0} //in px
-    positionUnit: 'px' | 'mm' = 'px'
-    width: number = 10
-    height: number = 5
+    position: BlockPosition = {x: 0, y:0} //px by default
+    positionUnit: 'px' | 'mm' | '%' = 'px'
+    width: number = 100 //px by default
+    height: number = 35 //px by default
     sizeUnit: 'px' | 'mm' = 'px'
     _content: any
     renderers: Array<Renderer> = []
@@ -78,6 +81,7 @@ export class Block {
 
 export class TextBlock extends Block {
     _content: string = ''
+    type = 'text'
 
     constructor(content: string = '') {
         super();
@@ -91,6 +95,7 @@ export class TextBlock extends Block {
 export class ImageBlock extends Block {
     _content: string = ''
     alt: string = ''
+    type = 'img'
 
     constructor() {
         super();

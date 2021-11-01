@@ -1,9 +1,8 @@
 import React, {Context} from "react";
-import {SlideData} from "./Helpers/SlideData";
+import {createSlide, SlideData} from "./Helpers/SlideData";
 import StorageProviderInterface from "./Providers/StorageProviderInterface";
 import SlidesLocalStorageProvider from "./Providers/SlidesLocalStorageProvider";
 import Blockify from "./libraries/Blockify/blockify";
-import {Block} from "./libraries/Blockify/models/block";
 
 /**
  * AppContext Types
@@ -74,8 +73,8 @@ export const AppContextProvider: React.FC<{children: JSX.Element}> = ({children,
 
     //ensure the data is retrieved at the beginning of the load
     React.useEffect(() => {
-        localStorage.get(storageKeySlides).then((data) => {
-            setState({...state, slides: data})
+        localStorage.get(storageKeySlides).then((data: SlideData[]) => {
+            setState({...state, slides: data.map((d) => createSlide(d))})
         })
     }, []);
 

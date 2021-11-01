@@ -1,9 +1,9 @@
 import DataProviderInterface from "./DataProviderInterface";
 import {createTemplateData, TemplateData} from "../Helpers/TemplateData";
-import {SlideBlock} from "../Helpers/SlideBlock";
+import {Block} from "../libraries/Blockify/models/block";
 
 const templates: TemplateData[] = [
-    createTemplateData({name: 'Simple Text', description: "A simple Text template", blocks: [new SlideBlock()]})
+    createTemplateData({name: 'Simple Text', description: "A simple Text template", blocks: [new Block()]})
 ]
 
 class TemplateLocalProvider implements DataProviderInterface {

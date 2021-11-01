@@ -10,6 +10,16 @@ export type renderArgs = {
      * The style that you want to apply to the outer rendered div
      */
     style?: {}
+
+    /**
+     * id to be appended at the end of key
+     */
+    id?: string
+
+    /**
+     * onClick handler
+     */
+    handleBlock?: (block: Block, action?: string) => void
 }
 
 export interface Renderer {

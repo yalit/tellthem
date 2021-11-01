@@ -22,15 +22,17 @@ export default class Blockify {
         return this
     }
 
-    renderAsReact(blocks: Block[], args: renderArgs): Array<any> {
+    renderAsReact(blocks: Block[] | Block, args: renderArgs): Array<any> {
         return this.render(blocks, 'react', args)
     }
 
-    renderAsDom(blocks: Block[], args: renderArgs): Array<any> {
+    renderAsDom(blocks: Block[] | Block, args: renderArgs): Array<any> {
         return this.render(blocks, 'dom', args)
     }
 
-    render(blocks: Block[], type: string, args: renderArgs) {
+    render(blocks: Block[] | Block, type: string, args: renderArgs) {
+        if (blocks instanceof Block) return blocks.render(type, args)
+
         return blocks.map(block => block.render(type, args))
     }
 }
