@@ -1,48 +1,23 @@
-import React, {useState} from 'react';
+import React from 'react';
 import './Styles/App.scss';
 import Header from "./Header";
-import {ThemeProvider} from '@material-ui/core/styles';
-import {useAppTheme} from "../Helpers/Theme";
-import PageList from "./PageList";
-import {Page} from "../Helpers/Page";
-import PagesLocalStorageProvider from "../Providers/PagesLocalStorageProvider";
-import StorageProviderInterface from "../Providers/StorageProviderInterface";
+import AppContent from "./AppContent";
 
-function App() {
-    const mainKey = 'tellThem__pages'
-    const localStorage:StorageProviderInterface = new PagesLocalStorageProvider()
-    const [pages, usePages] = useState<Page[]>(localStorage.get(mainKey))
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faTrash, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {AppContextProvider} from "../AppContext";
 
-    const AddPage = (page: Page) => {
-        const newPages = [...pages].concat([page]);
-        RefreshDisplay(newPages)
-        return true;
-    }
+library.add(faTrash)
+library.add(faTimes)
 
-    const EditPage = (page: Page) => {
-        console.log(page)
-        const editedPages = pages.map(p => (p.id === page.id) ? page : p)
-        RefreshDisplay(editedPages)
-        return true
-    }
-
-    const DeletePage = (page: Page) => {
-        const editedPages = pages.filter(p => p.id !== page.id)
-        RefreshDisplay(editedPages)
-        return true
-    }
-
-    const RefreshDisplay = (pages: Array<Page>) => {
-        localStorage.save(mainKey, pages)
-        usePages(pages);
-    }
-
+function App(){
+    // @ts-ignore
     return (
         <React.Fragment>
-            <ThemeProvider theme={useAppTheme()}>
-                <Header/>
-                <PageList pages={pages} onAddPage={AddPage} onEditPage={EditPage} onDeletePage={DeletePage}/>
-            </ThemeProvider>
+            <Header/>
+            <AppContextProvider>
+                <AppContent />
+            </AppContextProvider>
         </React.Fragment>
     );
 }

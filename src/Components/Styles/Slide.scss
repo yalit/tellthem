@@ -1,0 +1,156 @@
+@import "App";
+@import "variables";
+
+$content-margin-padding: 5rem;
+
+
+#slide-list {
+  width: 95vw;
+  margin: $content-margin-padding auto 0;
+  display: flex;
+  gap: 2rem;
+  .slide-cover {
+    @extend .box;
+    position: relative;
+    width: 350px;
+    height: 250px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    gap: 0.5rem;
+    .slide-cover--title, .slide-cover--add {
+      font-weight: bold;
+      font-size: 2rem;
+      cursor: pointer;
+    }
+    .slide-cover--add {
+      .slide-cover--add--button {
+        position: relative;
+        width: 100%;
+        height: 2rem;
+        &:before, &:after {
+          position: absolute;
+          left: calc(50% - 2.5px);
+          content: ' ';
+          height: 2rem;
+          width: 5px;
+          background-color: $text-main-color;
+        }
+        &:before {
+          transform: rotate(90deg);
+        }
+      }
+    }
+    .slide-cover--delete {
+      @extend .top-right-button;
+      font-size: 1.3rem;
+      color: $delete-color
+    }
+  }
+}
+
+#slide-display {
+  position: relative;
+  margin: 0;
+
+  $sidebar-min-width: 400px;
+
+  .slide-display--header {
+    position: relative;
+    margin: 0;
+    width: 100%;
+    padding: $default-padding;
+    box-sizing: border-box;
+    display: flex;
+    justify-content: flex-start;
+    box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    .slide-display--header--part-title, .slide-display--header--part-actions {
+      width: 20%
+    }
+    .slide-display--header--part-blocks {
+      width: 60%;
+    }
+    .slide-display--header--part {
+      margin: 0;
+      display: flex;
+      justify-content: flex-start;
+      align-items: flex-start;
+      .slide-display--header--part--title {
+        width: 50px;
+        font-weight: bold;
+      }
+      .slide-display--header--part--data {
+        width: calc(100% - 50px);
+        height: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: flex-start;
+        div {
+          margin-right: $default-margin;
+          &:last-child {
+            margin-right: 0;
+          }
+        }
+        .slide-display--header--part--title--input {
+          input {
+            margin: 0;
+            border: none;
+            font-size: 1.8rem;
+            padding: $default-padding;
+            background-color: inherit;
+            border-bottom: #ddd 1px solid;
+            &:focus {
+              outline: none;
+            }
+          }
+        }
+      }
+    }
+  }
+
+  .slide-display--slide {
+    margin: 0;
+    padding: $default-padding;
+    width: 100%;
+    box-sizing: border-box;
+    .slide-display--slide--canvas-editor, .slide-display--slide--canvas {
+      position: relative;
+      width: 80%;
+    }
+    .slide-display--slide--canvas-editor {
+      padding: $default-padding;
+      box-sizing: border-box;
+      margin: $default-margin auto;
+    }
+    .slide-display--slide--canvas {
+      margin: 0 auto;
+      height: 75vh;
+      border: 1px #eee solid;
+      box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+      border-radius: $default-radius;
+      .slide-display--slide--canvas--container {
+        position: relative;
+        padding: 0;
+        margin: 0;
+        width: 100%;
+        height: 100%;
+        .canvas--hovering--block {
+          border: 1px solid #888;
+        }
+        .canvas--slide--block {
+          cursor: pointer;
+          &.edited {
+            border: 1px solid #eee;
+            box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
+          }
+        }
+      }
+    }
+  }
+
+  .slide-display--close {
+    @extend .top-right-button;
+    font-size: 1.5rem;
+  }
+}

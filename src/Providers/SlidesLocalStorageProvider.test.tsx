@@ -1,10 +1,10 @@
-import PagesLocalStorageProvider from "./PagesLocalStorageProvider";
+import SlidesLocalStorageProvider from "./SlidesLocalStorageProvider";
 import StorageProviderInterface from "./StorageProviderInterface";
-import {createPage, Page} from "../Helpers/Page";
+import {createSlide, Slide} from "../Helpers/Slide";
 
 test('test local storage save', () => {
-    const localStorage = new PagesLocalStorageProvider();
-    const page:Page = createPage({title: 'title', description:'description', img: 'BLOB IMG'})
+    const localStorage = new SlidesLocalStorageProvider();
+    const page:Slide = createSlide({title: 'title', description:'description', template: ''})
     localStorage.save('item_test', [page])
 
     const retrievedItem = JSON.parse(window.localStorage.getItem('item_test') as string)
@@ -13,8 +13,8 @@ test('test local storage save', () => {
 });
 
 test('test local storage get', () => {
-    const localStorage = new PagesLocalStorageProvider();
-    const page:Page = createPage({title: 'title', description:'description', img: 'BLOB IMG'})
+    const localStorage = new SlidesLocalStorageProvider();
+    const page:Slide = createSlide({title: 'title', description:'description', template: ''})
     window.localStorage.setItem('item_test', JSON.stringify([page]))
 
     const retrievedItem = localStorage.get('item_test')
@@ -23,8 +23,8 @@ test('test local storage get', () => {
 })
 
 test('test local storage delete', () => {
-    const localStorage = new PagesLocalStorageProvider();
-    const page:Page = createPage({title: 'title', description:'description', img: 'BLOB IMG'})
+    const localStorage = new SlidesLocalStorageProvider();
+    const page:Slide = createSlide({title: 'title', description:'description', template: ''})
     window.localStorage.setItem('item_test', JSON.stringify([page]))
     localStorage.delete('item_test');
 
