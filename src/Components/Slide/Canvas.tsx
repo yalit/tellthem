@@ -1,7 +1,7 @@
 import {SlideData} from "./SlideData";
 import React, {useEffect, useRef, useState} from "react";
 import {useDrop, XYCoord} from "react-dnd";
-import {DRAGGABLE_TYPE_NEW_BLOCK, DraggableBlock, DraggableDragLayer} from "../Blocks/DraggableBlock";
+import {DRAGGABLE_TYPE_NEW_BLOCK, DraggableDragLayer} from "../Blocks/DraggableBlock";
 import {Block} from "../Blocks/block";
 import getBlock from "../Blocks/BlockFactory";
 
