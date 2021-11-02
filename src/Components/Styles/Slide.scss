@@ -137,9 +137,13 @@ $content-margin-padding: 5rem;
           top: $default-margin;
           right: $default-margin;
           cursor: pointer;
-          color: #922f2f;
           font-weight: bold;
-
+          .menu--editor--actions--close {
+            color: $delete-color;
+          }
+          .menu--editor--actions--edit {
+            color: $edit-color;
+          }
         }
       }
       input {
