@@ -1,5 +1,4 @@
 import ProviderInterface from "./StorageProviderInterface";
-import {SlideData} from "../Components/Slide/SlideData";
 
 
 class SlidesLocalStorageProvider implements ProviderInterface {

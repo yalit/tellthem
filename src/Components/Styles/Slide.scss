@@ -152,6 +152,9 @@ $content-margin-padding: 5rem;
         }
       }
       input {
+        width: 100%
+      }
+      input[type="text"] {
         @extend .menu--item--input;
       }
       .menu--editor--data--item {
