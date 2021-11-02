@@ -23,7 +23,7 @@ export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, upda
         <div className="menu--item--editor">
             <div className={'slide-display--menu--item menu--item--editor--title'}>
                 <div className="slide-display--menu--item--title menu--editor--main--title">
-                    <div className="" >Edit : {block.name}</div>
+                    <div className="" >Edit : {block.name + ' - ' + block.id}</div>
                     <div className="menu--item--editor--actions">
                         <div className="menu--editor--actions--close" onClick={closeEditor}><FontAwesomeIcon icon={"times"} /></div>
 

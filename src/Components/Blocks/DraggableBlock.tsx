@@ -7,14 +7,17 @@ import {getPosition} from "../../Helpers/DOMHelper";
 interface DraggableBlockProps {
     children: React.ReactNode,
     block: Block,
-    classname: string
+    classname: string,
+    type: typeof DRAGGABLE_TYPES[number]
 }
 
-export const DRAGGABLE_ITEM = 'draggable'
+export const DRAGGABLE_TYPE_NEW_BLOCK = 'newBlock'
+export const DRAGGABLE_TYPE_EDITED_BLOCK = 'editedBlock'
+export const DRAGGABLE_TYPES = [DRAGGABLE_TYPE_NEW_BLOCK, DRAGGABLE_TYPE_EDITED_BLOCK]
 
-export const DraggableBlock:React.FC<DraggableBlockProps> = ({children, block, classname}) => {
+export const DraggableBlock:React.FC<DraggableBlockProps> = ({children, block, classname, type}) => {
     const [{}, dragRef, dragPreviewRef] = useDrag(() => ({
-        type: DRAGGABLE_ITEM,
+        type: type,
         item: block,
     }))
 
@@ -39,9 +42,10 @@ interface DraggableDragLayerProps {
 }
 
 export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, parentRef, updateBlockPosition}) => {
-    const { currentOffset } =
+    const { currentOffset, isDragging } =
         useDragLayer((monitor) => ({
-            currentOffset: monitor.getSourceClientOffset()
+            currentOffset: monitor.getSourceClientOffset(),
+            isDragging: monitor.isDragging()
         }))
 
     const parentRefPosition = getPosition(parentRef)
@@ -57,7 +61,7 @@ export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, pa
         updateBlockPosition(getItemPosition(currentOffset)!)
     }, [currentOffset])
 
-    if (block === null) return null
+    if (block === null || !isDragging) return null
 
     return(
         block.render('react', {class: 'canvas--hovering--block', style: getItemPosition(currentOffset)})

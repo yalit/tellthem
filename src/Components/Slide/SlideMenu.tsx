@@ -1,5 +1,5 @@
 import React from "react";
-import {DraggableBlock} from "../Blocks/DraggableBlock";
+import {DRAGGABLE_TYPE_NEW_BLOCK, DraggableBlock} from "../Blocks/DraggableBlock";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Block, ImageBlock, TextBlock} from "../Blocks/block";
 import {SlideData} from "./SlideData";
@@ -37,7 +37,7 @@ export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, c
             <SlideMenuItem title="Available Blocks" className="menu--item--blocks">
                 {availableBlocks.map(info => {
                     return (
-                        <DraggableBlock key={info.block.id} block={info.block} classname="menu--item--available--block">
+                        <DraggableBlock key={info.block.id} block={info.block} classname="menu--item--available--block" type={DRAGGABLE_TYPE_NEW_BLOCK}>
                                 <div className="icon"><FontAwesomeIcon icon={info.icon} /></div>
                                 <div className="block--name">{info.block.displayName}</div>
                         </DraggableBlock>

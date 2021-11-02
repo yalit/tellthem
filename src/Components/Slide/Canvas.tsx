@@ -1,7 +1,7 @@
 import {SlideData} from "./SlideData";
 import React, {useEffect, useRef, useState} from "react";
 import {useDrop, XYCoord} from "react-dnd";
-import {DRAGGABLE_ITEM, DraggableDragLayer} from "../Blocks/DraggableBlock";
+import {DRAGGABLE_TYPE_NEW_BLOCK, DraggableBlock, DraggableDragLayer} from "../Blocks/DraggableBlock";
 import {Block} from "../Blocks/block";
 import getBlock from "../Blocks/BlockFactory";
 
@@ -18,7 +18,7 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
     const [hoveringBlock, setHoveringBlock] = useState<Block|null>(null)
 
     const [{ isActive, item, didDrop }, dropRef] = useDrop(() => ({
-        accept: DRAGGABLE_ITEM,
+        accept: DRAGGABLE_TYPE_NEW_BLOCK,
         collect: (monitor) => ({
             item: monitor.getItem(),
             isActive: monitor.canDrop() && monitor.isOver(),
