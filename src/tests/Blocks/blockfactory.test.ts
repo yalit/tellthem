@@ -5,7 +5,6 @@ describe("Block Factory", () => {
 
     test('Text Block correct getter without id', () => {
         let blockData: BlockData = {
-            name: 'text',
             displayName: 'Text Block',
             type: 'text',
             width: 10,
@@ -13,14 +12,14 @@ describe("Block Factory", () => {
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
-            _content: "A super content"
+            _content: "A super content",
+            renderers: []
         }
 
         const block = getBlock(blockData)
 
         expect(block.id).not.toBeNull()
         expect(block.type).toBe('text')
-        expect(block.name).toBe('text')
         expect(block.displayName).toBe('Text Block')
         expect(block.width).toBe(10)
         expect(block.height).toBe(50)
@@ -34,7 +33,6 @@ describe("Block Factory", () => {
     test('Text Block correct getter with id', () => {
         let blockData: BlockData = {
             id: "ID-001",
-            name: 'text',
             displayName: 'Text Block',
             type: 'text',
             width: 10,
@@ -42,7 +40,8 @@ describe("Block Factory", () => {
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
-            _content: "A super content"
+            _content: "A super content",
+            renderers: []
         }
 
         const block = getBlock(blockData)
@@ -52,7 +51,6 @@ describe("Block Factory", () => {
 
     test('Image Block correct getter without ID', () => {
         let blockData: BlockData = {
-            name: 'img',
             displayName: 'Image Block',
             type: 'img',
             width: 10,
@@ -60,21 +58,20 @@ describe("Block Factory", () => {
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
-            _content: "A super content"
+            _content: "A super content",
+            renderers: []
         }
 
         const block = getBlock(blockData)
 
         expect(block.id).not.toBeNull()
         expect(block.type).toBe('img')
-        expect(block.name).toBe('img')
         expect(block.displayName).toBe('Image Block')
     })
 
     test('Image Block correct getter with ID', () => {
         let blockData: BlockData = {
             id: "ID-001",
-            name: 'img',
             displayName: 'Image Block',
             type: 'img',
             width: 10,
@@ -82,7 +79,8 @@ describe("Block Factory", () => {
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
-            _content: "A super content"
+            _content: "A super content",
+            renderers: []
         }
 
         const block = getBlock(blockData)

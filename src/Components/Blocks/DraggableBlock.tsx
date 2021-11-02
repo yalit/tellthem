@@ -21,7 +21,7 @@ export const DraggableBlock:React.FC<DraggableBlockProps> = ({children, block, c
         item: block,
     }))
 
-    const draggableId = "draggable-"+block.name;
+    const draggableId = "draggable-"+block.id;
 
     useEffect(() => {
         dragPreviewRef(getEmptyImage(), { captureDraggingState: true })

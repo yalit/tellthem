@@ -8,12 +8,14 @@ import {TextEditor} from "./Editors/TextEditor";
 
 interface CanvasBlockEditorProps {
     block: Block,
+    edited: boolean,
+    editBlock: (block: Block) => void,
     updateBlock: (id: string, block: Partial<Block>) => void,
     deleteBlock: (block: Block) => void,
     closeEditor: () => void
 }
 
-export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, updateBlock, deleteBlock, closeEditor}) => {
+export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, editBlock, updateBlock, deleteBlock, closeEditor, edited}) => {
     const blockEditors: { [type: string]: ReactElement } = {
         'text': <TextEditor block={block} onChange={updateBlock} />,
         'img': <div></div>
@@ -23,14 +25,17 @@ export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, upda
         <div className="menu--item--editor">
             <div className={'slide-display--menu--item menu--item--editor--title'}>
                 <div className="slide-display--menu--item--title menu--editor--main--title">
-                    <div className="" >Edit : {block.name + ' - ' + block.id}</div>
+                    <div className="" >{block.displayName + ' - ' + block.id}</div>
                     <div className="menu--item--editor--actions">
-                        <div className="menu--editor--actions--close" onClick={closeEditor}><FontAwesomeIcon icon={"times"} /></div>
-
+                        {edited ? (
+                            <div className="menu--editor--actions--close" onClick={closeEditor}><FontAwesomeIcon icon={"times"} /></div>
+                        ) : (
+                            <div className="menu--editor--actions--edit" onClick={() => editBlock(block)}><FontAwesomeIcon icon={"edit"} /></div>
+                        )}
                     </div>
                 </div>
             </div>
-            {blockEditors[block.type]}
+            {edited && blockEditors[block.type]}
         </div>
     )
 }

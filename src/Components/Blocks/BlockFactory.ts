@@ -19,7 +19,6 @@ export default function getBlock(data: BlockData): Block {
     if (!data.id) data.id = uniqid()
 
     block.id = data.id !
-    block.name = data.name
     block.displayName = data.displayName
     block.position = data.position
     block.positionUnit = data.positionUnit

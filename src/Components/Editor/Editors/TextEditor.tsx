@@ -9,7 +9,7 @@ export const TextEditor:React.FC<EditorProps> = ({block, onChange}) => {
     return (
         <>
             <SlideMenuItem title='Name' className="menu--item--editor--name">
-                <InputField value={block.name} onChange={(name) => onChange(block.id,{name})}  inputName="name"/>
+                <InputField value={block.displayName} onChange={(displayName) => onChange(block.id,{displayName})}  inputName="name"/>
             </SlideMenuItem>
 
             <SlideMenuItem title='Size' className="menu--item--editor--sizes">
@@ -22,7 +22,7 @@ export const TextEditor:React.FC<EditorProps> = ({block, onChange}) => {
                 <div className="menu--editor--data--item">
                     <div className="menu--editor--data--item--title">Height</div>
                     <div className="menu--editor--data--item--content">
-                        <Slider  axis="x" x={block.height} onChange={({x}) => onChange(block.id, {height: x})} xmin={10} xmax={100 - block.position.y}/>
+                        <Slider  axis="x" x={block.height} onChange={({y}) => onChange(block.id, {height: y})} xmin={10} xmax={100 - block.position.y}/>
                     </div>
                 </div>
             </SlideMenuItem>
