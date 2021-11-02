@@ -19,7 +19,7 @@ export type renderArgs = {
     /**
      * onClick handler
      */
-    handleBlock?: (block: Block, action?: string) => void
+    onClick?: (block: Block) => void
 }
 
 export interface Renderer {

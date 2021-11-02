@@ -4,11 +4,10 @@ import Header from "./Header";
 import AppContent from "./AppContent";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
-import {faTrash, faTimes} from "@fortawesome/free-solid-svg-icons";
+import {faTrash, faTimes, faCaretRight, faCaretDown, faFont, faImage} from "@fortawesome/free-solid-svg-icons";
 import {AppContextProvider} from "../AppContext";
 
-library.add(faTrash)
-library.add(faTimes)
+library.add({faTrash, faTimes, faCaretDown,faCaretRight, faFont, faImage})
 
 function App(){
     // @ts-ignore

@@ -25,11 +25,9 @@ export const DraggableBlock:React.FC<DraggableBlockProps> = ({children, block, c
     }, [])
 
     return (
-        <>
-            <div key={draggableId} ref={dragRef} id={draggableId} className={"draggable "+classname}>
-                {children}
-            </div>
-        </>
+        <div key={draggableId} ref={dragRef} id={draggableId} className={"draggable "+classname}>
+            {children}
+        </div>
     )
 }
 

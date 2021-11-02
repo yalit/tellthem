@@ -3,20 +3,19 @@ import React, {useEffect, useRef, useState} from "react";
 import {useDrop, XYCoord} from "react-dnd";
 import {DRAGGABLE_ITEM, DraggableDragLayer} from "../Blocks/DraggableBlock";
 import {Block} from "../Blocks/block";
-import {CanvasBlockEditor} from "../Editor/CanvasBlockEditor";
 import getBlock from "../Blocks/BlockFactory";
 
 
 interface CanvasProps {
     slide: SlideData,
     addBlock: (block: Block) => void,
-    updateBlock: (block: Block) => void
+    editBlock: (block: Block) => void,
+    editedBlock?: Block
 }
 
-export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) => {
+export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, editedBlock}) => {
     const canvasRef = useRef<HTMLDivElement>(null)
     const [hoveringBlock, setHoveringBlock] = useState<Block|null>(null)
-    const [editedBlock, setEditedBlock] = useState<Block|null>(null)
 
     const [{ isActive, item, didDrop }, dropRef] = useDrop(() => ({
         accept: DRAGGABLE_ITEM,
@@ -41,7 +40,7 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
         if (didDrop && hoveringBlock !== null) {
             const newBlock = getBlock(hoveringBlock)
             addBlock(newBlock)
-            setNewEditedBlock(newBlock)
+            editBlock(newBlock)
         }
     }, [didDrop])
 
@@ -58,34 +57,8 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
         setHoveringBlock(newHoveringBlock)
     }
 
-    const setNewEditedBlock = (block: Block) => {
-        if (block === editedBlock) return
-        setEditedBlock(block)
-    }
-
-    const updateEditedBlock = (blockData: Partial<Block>) => {
-        if (editedBlock === null) return
-
-        const updatedBlock = getBlock({...editedBlock, ...blockData} as Block)
-        updateBlock(updatedBlock)
-        setEditedBlock(updatedBlock)
-    }
-
-    const deleteEditedBlock = (block: Block) => {
-        console.log(block)
-
-    }
-
     return (
         <>
-            {editedBlock !== null &&
-                <CanvasBlockEditor
-                    block={editedBlock}
-                    updateBlock={updateEditedBlock}
-                    deleteBlock={(block) => console.log(block)}
-                    closeEditor={() => setEditedBlock(null)}
-                />
-            }
             <div className="slide-display--slide">
                 <div ref={dropRef} className="slide-display--slide--canvas">
                     <div ref={canvasRef} className="slide-display--slide--canvas--container">
@@ -96,7 +69,7 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
 
                         />
                         {slide.blocks.map((block, k) => {
-                            return block.render('react', {class: 'canvas--slide--block '+(editedBlock === block ? 'edited' : ''), handleBlock: setNewEditedBlock, id: ""+k})
+                            return block.render('react', {class: 'canvas--slide--block '+(editedBlock === block ? 'edited' : ''), onClick: editBlock, id: ""+k})
                         })}
                     </div>
                 </div>

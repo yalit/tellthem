@@ -1,41 +1,35 @@
-import React from "react";
+import React, {ReactElement} from "react";
 import {Block} from "../Blocks/block";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import Slider from 'react-input-slider';
+import {InputField} from "./Fields/InputField";
+import {SlideMenuItem} from "../Slide/SlideMenuItem";
+import {TextEditor} from "../Blocks/Editors/TextEditor";
 
 interface CanvasBlockEditorProps {
     block: Block,
-    updateBlock: (block: Partial<Block>) => void,
+    updateBlock: (id: string, block: Partial<Block>) => void,
     deleteBlock: (block: Block) => void,
     closeEditor: () => void
 }
 
 export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, updateBlock, deleteBlock, closeEditor}) => {
-    const handleContentChange = (data: any) => {
-        updateBlock({'_content': data}) //Todo : handle the data when it's an image block...
-    }
-
-    const handleWidthChange = (width: number) => {
-        updateBlock({width})
-    }
-
-    const handleHeightChange = (height: number) => {
-        updateBlock({height})
+    const blockEditors: { [type: string]: ReactElement } = {
+        'text': <TextEditor block={block} onChange={updateBlock} />,
+        'img': <div></div>
     }
 
     return (
-        <div className="slide-display--slide--canvas-editor">
-            <div className="slide-display--slide--canvas--editor--title">
-                {block.name}
+        <div className="menu--item--editor">
+            <div className={'slide-display--menu--item menu--item--editor--title'}>
+                <div className="slide-display--menu--item--title">
+                    <div>Edit : {block.name}</div>
+                    <div className="menu--item--editor--close" onClick={closeEditor}>
+                        <FontAwesomeIcon icon={"times"} />
+                    </div>
+                </div>
             </div>
-            <div className="slide-display--slide--canvas--editor--form">
-                Content : <input name="content" value={block.content} onChange={(e) => handleContentChange(e.target.value)} />
-                Width : <Slider  axis="x" x={block.width} onChange={({x}) => handleWidthChange(x)} xmin={10} xmax={100 - block.position.x}/>
-                Height : <Slider  axis="x" x={block.height} onChange={({x}) => handleHeightChange(x)} xmin={10} xmax={100 - block.position.y}/>
-            </div>
-            <div className="slide-display--close" onClick={closeEditor}>
-                <div className="slide-display--close--button"><FontAwesomeIcon icon={"times"} /></div>
-            </div>
+            {blockEditors[block.type]}
         </div>
     )
 }

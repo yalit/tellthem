@@ -14,8 +14,8 @@ export class TextReactRenderer implements Renderer {
         const blockStyle = this.reactStyler.getStyle(block)
 
         const clickBlock = () => {
-            if (!args.handleBlock) return
-            args.handleBlock(block, 'edit')
+            if (!args.onClick) return
+            args.onClick(block)
         }
 
         return <div key={block.name+'-'+args.id} className={args.class ?? ''} style={{...blockStyle, ...args.style}} onClick={clickBlock}>{block.content}</div>

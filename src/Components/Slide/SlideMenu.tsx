@@ -5,32 +5,55 @@ import {Block, ImageBlock, TextBlock} from "../Blocks/block";
 import {SlideData} from "./SlideData";
 import {InputField} from "../Editor/Fields/InputField";
 import {SlideMenuItem} from "./SlideMenuItem";
+import {IconProp} from "@fortawesome/fontawesome-svg-core";
+import {CanvasBlockEditor} from "../Editor/CanvasBlockEditor";
 
 
 interface SlideMenuProps {
     currentSlide: SlideData,
     updateSlide: (slideData: Partial<SlideData>) => void
-    closeSlide: () => void
+    closeSlide: () => void,
+    editedBlock?: Block,
+    updateBlock: (id: string, blockData: Partial<Block>) => void,
+    deleteBlock: (block: Block) => void,
+    closeEditor: () => void
 }
 
-export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, closeSlide}) => {
-    const availableBlocks: Block[] = [new TextBlock(), new ImageBlock()]
+export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, closeSlide, editedBlock, updateBlock, deleteBlock, closeEditor}) => {
+    const availableBlocks: Array<{icon: IconProp, block: Block}> = [{
+        icon: "font",
+        block: new TextBlock()
+        }, {
+        icon: "image",
+        block: new ImageBlock()
+        }
+    ]
 
     return (
         <div className="slide-display--menu">
             <SlideMenuItem title='Title' className="menu--item--title">
-                <InputField value={currentSlide.title} onChange={(data) => updateSlide({title: data})} />
+                <InputField value={currentSlide.title} onChange={(data) => updateSlide({title: data})} inputName='title'/>
             </SlideMenuItem>
-            <div className="slide-display--menu--part slide-display--menu--part-blocks">
-                <div className="slide-display--menu--part--title">Blocks</div>
-                <div className="slide-display--menu--part--data">{availableBlocks.map(block => {
+            <SlideMenuItem title="Available Blocks" className="menu--item--blocks">
+                {availableBlocks.map(info => {
                     return (
-                        <DraggableBlock key={block.name} block={block} classname="slide-display--menu--block--display">
-                            <div className="slide-display--menu--block--title">{block.displayName}</div>
+                        <DraggableBlock key={info.block.id} block={info.block} classname="menu--item--available--block">
+                                <div className="icon"><FontAwesomeIcon icon={info.icon} /></div>
+                                <div className="block--name">{info.block.displayName}</div>
                         </DraggableBlock>
                     )
-                })}</div>
-            </div>
+                })}
+            </SlideMenuItem>
+
+            {editedBlock !== undefined ?
+                <CanvasBlockEditor
+                    block={editedBlock!}
+                    updateBlock={updateBlock}
+                    deleteBlock={deleteBlock}
+                    closeEditor={closeEditor}
+                /> :''
+            }
+
             <div className="slide-display--menu--actions">
                 <div className="slide-display--menu--actions--action slide-display--menu--actions--close" onClick={closeSlide}>
                     <FontAwesomeIcon icon={"times"} />

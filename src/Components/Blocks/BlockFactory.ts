@@ -1,8 +1,8 @@
-import {Block, ImageBlock, TextBlock} from "./block";
+import {Block, BlockData, ImageBlock, TextBlock} from "./block";
 
 const uniqid = require('uniqid')
 
-export default function getBlock(data: Block): Block {
+export default function getBlock(data: BlockData): Block {
     let block: Block
 
     switch(data.type) {

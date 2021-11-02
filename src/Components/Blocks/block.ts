@@ -12,9 +12,23 @@ export interface BlockPosition {
     y: number
 }
 
+export interface BlockData {
+    id: string ,
+    name: string ,
+    type: Readonly<string>,
+    displayName: string,
+    position: BlockPosition,
+    positionUnit: 'px' | 'mm' | '%',
+    width: number, //% by default
+    height: number , //% by default
+    sizeUnit: 'px' | 'mm' | '%',
+    _content: any,
+    renderers: Array<Renderer>,
+}
+
 export class Block {
     id: string = uniqid()
-    name: string = ''
+    name: string = this.id
     type: Readonly<string> = ''
     displayName: string = ''
     position: BlockPosition = {x: 0, y:0} //px by default
@@ -77,7 +91,7 @@ export class TextBlock extends Block {
     constructor(content: string = '') {
         super();
         this.name = 'text'
-        this.displayName = 'Text Block'
+        this.displayName = 'Text'
         this._content = content
         this.renderers = [new TextReactRenderer()]
     }
@@ -91,7 +105,7 @@ export class ImageBlock extends Block {
     constructor() {
         super();
         this.name = 'img'
-        this.displayName = 'Image Block'
+        this.displayName = 'Image'
         this._content = ''
         this.renderers = [new ImageReactRenderer()]
     }

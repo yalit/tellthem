@@ -1,13 +1,12 @@
 import React, {useState} from "react";
 import {SlideData} from "./SlideData";
-import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 import '../Styles/Slide.scss'
 import {AppSlideActionsType} from "../../AppContext";
-import {DraggableBlock} from "../Blocks/DraggableBlock";
 import {Canvas} from "./Canvas";
-import {Block, ImageBlock, TextBlock} from "../Blocks/block";
+import {Block} from "../Blocks/block";
 import {SlideMenu} from "./SlideMenu";
+import getBlock from "../Blocks/BlockFactory";
 
 type SlideDisplayProps = {
     slide: SlideData,
@@ -16,16 +15,13 @@ type SlideDisplayProps = {
 }
 
 function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
-    const [internalSlide, useInternalSlide] = useState<SlideData>(slide)
+    const [internalSlide, setInternalSlide] = useState<SlideData>(slide)
+    const [editedBlock, setEditedBlock] = useState<Block | undefined>(undefined)
 
     const UpdateSlide = (slideData: Partial<SlideData>):void => {
         const updatedSlide = {...internalSlide, ...slideData}
-        useInternalSlide(updatedSlide)
+        setInternalSlide(updatedSlide)
         slideActions.updateSlide(updatedSlide)
-    }
-
-    const changeTitle = (title: string) => {
-        UpdateSlide({title})
     }
 
     const addBlock = (block: Block) => {
@@ -34,20 +30,42 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
         })
     }
 
-    const updateBlock = (block: Block) => {
+    const editBlock = (block: Block) => {
+        if (block !== editedBlock) setEditedBlock(block)
+    }
+
+    const closeEditor = () => {
+        setEditedBlock(undefined)
+    }
+
+    const updateBlock = (id:string, blockData: Partial<Block>) => {
+        let updatedBlock = internalSlide.blocks.filter(internalBlock => internalBlock.id === id)
+
+        if (updatedBlock.length === 0) return
+
+        const blockToUpdate = getBlock({...updatedBlock[0], ...blockData})
+        setEditedBlock(blockToUpdate)
+
         UpdateSlide({
             blocks: internalSlide.blocks.map(internalBlock => {
-                if (block.id === internalBlock.id) return block
+                if (id === internalBlock.id) return blockToUpdate
                 return internalBlock
             })
         })
     }
 
+    const deleteBlock = (block: Block) => {
+        UpdateSlide({
+            blocks: internalSlide.blocks.filter(internalBlock => internalBlock.id !== block.id)
+        })
+        closeEditor()
+    }
+
     return (
         <React.Fragment>
             <div id="slide-display">
-                <SlideMenu  closeSlide={onClose} currentSlide={internalSlide} updateSlide={UpdateSlide}/>
-                <Canvas slide={internalSlide} addBlock={addBlock} updateBlock={updateBlock} />
+                <SlideMenu  closeSlide={onClose} currentSlide={internalSlide} updateSlide={UpdateSlide} editedBlock={editedBlock} updateBlock={updateBlock} closeEditor={closeEditor} deleteBlock={deleteBlock}/>
+                <Canvas slide={internalSlide} addBlock={addBlock} editBlock={editBlock} editedBlock={editedBlock}/>
             </div>
         </React.Fragment>
     )
