@@ -1,14 +1,14 @@
 import React from "react";
 import {EditorProps} from "./EditorProps";
 import {SlideMenuItem} from "../../Slide/SlideMenuItem";
-import {InputField} from "../../Editor/Fields/InputField";
+import {InputField} from "../Fields/InputField";
 import Slider from "react-input-slider";
 
 
 export const TextEditor:React.FC<EditorProps> = ({block, onChange}) => {
     return (
         <>
-            <SlideMenuItem title='Name' className="menu--item--editor--name" open={true}>
+            <SlideMenuItem title='Name' className="menu--item--editor--name">
                 <InputField value={block.name} onChange={(name) => onChange(block.id,{name})}  inputName="name"/>
             </SlideMenuItem>
 
@@ -27,7 +27,7 @@ export const TextEditor:React.FC<EditorProps> = ({block, onChange}) => {
                 </div>
             </SlideMenuItem>
 
-            <SlideMenuItem title='Content' className="menu--item--editor--content">
+            <SlideMenuItem title='Content' className="menu--item--editor--content" open={true}>
                 <InputField value={block.content} onChange={(_content) => onChange(block.id,{_content})}  inputName="content"/>
             </SlideMenuItem>
         </>

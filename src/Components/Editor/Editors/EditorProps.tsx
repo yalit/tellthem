@@ -1,4 +1,4 @@
-import {Block, BlockData} from "../block";
+import {Block, BlockData} from "../../Blocks/block";
 
 export interface EditorProps {
     block: Block,

@@ -37,6 +37,7 @@ interface DraggableDragLayerProps {
     parentRef: HTMLElement,
     updateBlockPosition: (position: XYCoord) => void
 }
+
 export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, parentRef, updateBlockPosition}) => {
     const { currentOffset } =
         useDragLayer((monitor) => ({
@@ -47,7 +48,7 @@ export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, pa
 
     const getItemPosition = (itemOffset: XYCoord | null) => {
         if (parentRef === null || itemOffset === null || block === null) return
-        return {x: (itemOffset.x - parentRefPosition.x)/parentRef.clientWidth*100, y: (itemOffset.y - parentRefPosition.x)/parentRef.clientHeight*100}
+        return {x: (itemOffset.x - parentRefPosition.x)/parentRef.clientWidth*100, y: (itemOffset.y - parentRefPosition.y)/parentRef.clientHeight*100}
     }
 
     useEffect(() => {

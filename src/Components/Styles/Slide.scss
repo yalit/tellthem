@@ -127,16 +127,19 @@ $content-margin-padding: 5rem;
     }
     .menu--item--editor {
       margin-top: calc(2*#{$default-margin});
+      .menu--editor--main--title {
+        cursor:  default;
+      }
       .slide-display--menu--item--title {
         position: relative;
-        cursor: default;
-        .menu--item--editor--close {
+        .menu--item--editor--actions {
           position: absolute;
           top: $default-margin;
           right: $default-margin;
           cursor: pointer;
           color: #922f2f;
           font-weight: bold;
+
         }
       }
       input {
