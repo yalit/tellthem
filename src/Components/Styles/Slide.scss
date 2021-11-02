@@ -111,7 +111,7 @@ $content-margin-padding: 5rem;
         .slide-display--menu--item--data {
           display: flex;
           width: 100%;
-          padding-left: 0;
+          padding: 0;
           .menu--item--available--block {
             display: flex;
             width: 50px;
@@ -119,10 +119,12 @@ $content-margin-padding: 5rem;
             align-items: center;
             justify-content: center;
             box-sizing: border-box;
-            padding: $default-padding;
             border-right: 1px $light-grey solid;
             &:last-child {
               border: none;
+            }
+            &>div {
+              margin: 0 calc(2 * #{$default-margin});
             }
           }
         }
@@ -150,6 +152,9 @@ $content-margin-padding: 5rem;
         }
       }
       input {
+        width: 100%
+      }
+      input[type="text"] {
         @extend .menu--item--input;
       }
       .menu--editor--data--item {

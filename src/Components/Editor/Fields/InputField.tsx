@@ -8,6 +8,6 @@ interface InputFieldProps {
 
 export const InputField:React.FC<InputFieldProps> = ({value, onChange, inputName}) => {
     return (
-        <input value={value} name={inputName} onChange={(e) => onChange(e.target.value)}/>
+        <input value={value} type="text" name={inputName} onChange={(e) => onChange(e.target.value)}/>
     )
 }

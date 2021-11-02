@@ -50,6 +50,7 @@ export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, c
                 {currentSlide.blocks.map(block => {
                     return (
                         <CanvasBlockEditor
+                            key={block.id}
                             block={block}
                             edited={block === editedBlock}
                             editBlock={editBlock}

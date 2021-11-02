@@ -1,9 +1,6 @@
 import React, {ReactElement} from "react";
 import {Block} from "../Blocks/block";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import Slider from 'react-input-slider';
-import {InputField} from "./Fields/InputField";
-import {SlideMenuItem} from "../Slide/SlideMenuItem";
 import {TextEditor} from "./Editors/TextEditor";
 
 interface CanvasBlockEditorProps {
