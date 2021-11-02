@@ -29,9 +29,15 @@ export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, c
         }
     ]
 
+    /**
+     * TODO : list all the blocks and allow their edition directly by clicking on them in the menu
+     * TODO : add an overflow auto on the fix height menu
+     * TODO : add a padding bottom of the height of the action menu
+     */
+
     return (
         <div className="slide-display--menu">
-            <SlideMenuItem title='Title' className="menu--item--title">
+            <SlideMenuItem title='Slide Title' className="menu--item--title">
                 <InputField value={currentSlide.title} onChange={(data) => updateSlide({title: data})} inputName='title'/>
             </SlideMenuItem>
             <SlideMenuItem title="Available Blocks" className="menu--item--blocks">

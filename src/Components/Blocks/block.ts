@@ -12,6 +12,10 @@ export interface BlockPosition {
     y: number
 }
 
+/**
+ * TODO : Remove the name and use only displayName (or the contrary...) only id should be used to be the one
+ * TODO : automatic update of the name af the creation (like in Excel or Powerpoint)?
+ */
 export interface BlockData {
     id: string ,
     name: string ,

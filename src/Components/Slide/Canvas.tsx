@@ -17,6 +17,11 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
     const canvasRef = useRef<HTMLDivElement>(null)
     const [hoveringBlock, setHoveringBlock] = useState<Block|null>(null)
 
+    /**
+     * TODO :create 2 useDrop different for the newBlocks and for the editedBlock
+     * TODO : extract the functions out of here???
+     */
+
     const [{ isActive, item, didDrop }, dropRef] = useDrop(() => ({
         accept: DRAGGABLE_TYPE_NEW_BLOCK,
         collect: (monitor) => ({
