@@ -1,5 +1,5 @@
 import React, {Context} from "react";
-import {createSlide, SlideData} from "./Helpers/SlideData";
+import {createSlide, SlideData} from "./Components/Slide/SlideData";
 import StorageProviderInterface from "./Providers/StorageProviderInterface";
 import SlidesLocalStorageProvider from "./Providers/SlidesLocalStorageProvider";
 

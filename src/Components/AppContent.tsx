@@ -1,8 +1,8 @@
 import React from "react";
-import {createSlide, SlideData} from "../Helpers/SlideData";
+import {createSlide, SlideData} from "./Slide/SlideData";
 import './Styles/Slide.scss';
-import SlideCover from "./SlideCover";
-import SlideDisplay from "./SlideDisplay";
+import SlideCover from "./Slide/SlideCover";
+import SlideDisplay from "./Slide/SlideDisplay";
 import {AppSlideActionsType, useAppContext} from "../AppContext";
 
 export type AppContentProps = {

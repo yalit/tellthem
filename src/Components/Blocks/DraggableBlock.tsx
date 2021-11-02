@@ -1,8 +1,8 @@
 import React, {useEffect} from "react";
 import {useDrag, useDragLayer, XYCoord} from "react-dnd";
-import {Block} from "./Blocks/block";
+import {Block} from "./block";
 import {getEmptyImage} from "react-dnd-html5-backend";
-import {getPosition} from "../Helpers/DOMHelper";
+import {getPosition} from "../../Helpers/DOMHelper";
 
 interface DraggableBlockProps {
     children: React.ReactNode,

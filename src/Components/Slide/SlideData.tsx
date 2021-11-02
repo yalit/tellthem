@@ -1,6 +1,6 @@
-import {TemplateData} from "./TemplateData";
-import {Block} from "../Components/Blocks/block";
-import getBlock from "../Components/Blocks/BlockFactory";
+import {TemplateData} from "../../Helpers/TemplateData";
+import {Block} from "../Blocks/block";
+import getBlock from "../Blocks/BlockFactory";
 
 const uniqid = require('uniqid');
 

@@ -1,12 +1,10 @@
-import {SlideData} from "../Helpers/SlideData";
+import {SlideData} from "./SlideData";
 import React, {useEffect, useRef, useState} from "react";
 import {useDrop, XYCoord} from "react-dnd";
-import {DRAGGABLE_ITEM, DraggableBlock, DraggableDragLayer} from "./DraggableBlock";
-import {Block} from "./Blocks/block";
-import {useAppContext} from "../AppContext";
-import {CanvasBlockEditor} from "./Editor/CanvasBlockEditor";
-import {getPosition} from "../Helpers/DOMHelper";
-import getBlock from "./Blocks/BlockFactory";
+import {DRAGGABLE_ITEM, DraggableDragLayer} from "../Blocks/DraggableBlock";
+import {Block} from "../Blocks/block";
+import {CanvasBlockEditor} from "../Editor/CanvasBlockEditor";
+import getBlock from "../Blocks/BlockFactory";
 
 
 interface CanvasProps {
@@ -88,17 +86,19 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
                     closeEditor={() => setEditedBlock(null)}
                 />
             }
-            <div ref={dropRef} className="slide-display--slide--canvas">
-                <div ref={canvasRef} className="slide-display--slide--canvas--container">
-                    <DraggableDragLayer
-                        block={hoveringBlock}
-                        parentRef={canvasRef?.current as HTMLElement}
-                        updateBlockPosition={updateHoveringBlockPosition}
+            <div className="slide-display--slide">
+                <div ref={dropRef} className="slide-display--slide--canvas">
+                    <div ref={canvasRef} className="slide-display--slide--canvas--container">
+                        <DraggableDragLayer
+                            block={hoveringBlock}
+                            parentRef={canvasRef?.current as HTMLElement}
+                            updateBlockPosition={updateHoveringBlockPosition}
 
-                    />
-                    {slide.blocks.map((block, k) => {
-                        return block.render('react', {class: 'canvas--slide--block '+(editedBlock === block ? 'edited' : ''), handleBlock: setNewEditedBlock, id: ""+k})
-                    })}
+                        />
+                        {slide.blocks.map((block, k) => {
+                            return block.render('react', {class: 'canvas--slide--block '+(editedBlock === block ? 'edited' : ''), handleBlock: setNewEditedBlock, id: ""+k})
+                        })}
+                    </div>
                 </div>
             </div>
         </>

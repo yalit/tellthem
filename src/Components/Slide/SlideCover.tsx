@@ -1,5 +1,5 @@
 import React from "react";
-import {SlideData} from "../Helpers/SlideData";
+import {SlideData} from "./SlideData";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 export type SlideCoverProps = {

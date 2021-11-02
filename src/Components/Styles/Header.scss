@@ -7,7 +7,10 @@
   justify-content: flex-start;
   background-color: #222222;
   padding: 2rem;
+  margin: 0;
   box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  height: $header-height;
+  box-sizing: border-box;
   .header--title {
     font-size: 2rem;
     font-weight: bold;
