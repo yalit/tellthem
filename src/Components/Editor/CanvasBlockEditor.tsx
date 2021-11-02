@@ -7,11 +7,10 @@ interface CanvasBlockEditorProps {
     block: Block,
     updateBlock: (block: Partial<Block>) => void,
     deleteBlock: (block: Block) => void,
-    closeEditor: () => void,
-    maxSize: {width: number, height: number}
+    closeEditor: () => void
 }
 
-export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, updateBlock, deleteBlock, closeEditor, maxSize}) => {
+export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, updateBlock, deleteBlock, closeEditor}) => {
     const handleContentChange = (data: any) => {
         updateBlock({'_content': data}) //Todo : handle the data when it's an image block...
     }
@@ -31,8 +30,8 @@ export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, upda
             </div>
             <div className="slide-display--slide--canvas--editor--form">
                 Content : <input name="content" value={block.content} onChange={(e) => handleContentChange(e.target.value)} />
-                Width : <Slider  axis="x" x={block.width} onChange={({x}) => handleWidthChange(x)} xmin={10} xmax={100}/> {/*TODO : compute xmax based on position*/}
-                Height : <Slider  axis="x" x={block.height} onChange={({x}) => handleHeightChange(x)} xmin={10} xmax={100}/>
+                Width : <Slider  axis="x" x={block.width} onChange={({x}) => handleWidthChange(x)} xmin={10} xmax={100 - block.position.x}/>
+                Height : <Slider  axis="x" x={block.height} onChange={({x}) => handleHeightChange(x)} xmin={10} xmax={100 - block.position.y}/>
             </div>
             <div className="slide-display--close" onClick={closeEditor}>
                 <div className="slide-display--close--button"><FontAwesomeIcon icon={"times"} /></div>

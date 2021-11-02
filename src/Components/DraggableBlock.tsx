@@ -45,10 +45,11 @@ export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, pa
             currentOffset: monitor.getSourceClientOffset()
         }))
 
+    const parentRefPosition = getPosition(parentRef)
+
     const getItemPosition = (itemOffset: XYCoord | null) => {
         if (parentRef === null || itemOffset === null || block === null) return
-        //TODO : why not 0 ?
-        return {x: (itemOffset.x - parentRef.clientLeft)/parentRef.clientWidth*100, y: (itemOffset.y - parentRef.clientTop)/parentRef.clientHeight*100}
+        return {x: (itemOffset.x - parentRefPosition.x)/parentRef.clientWidth*100, y: (itemOffset.y - parentRefPosition.x)/parentRef.clientHeight*100}
     }
 
     useEffect(() => {

@@ -86,7 +86,6 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, updateBlock}) =>
                     updateBlock={updateEditedBlock}
                     deleteBlock={(block) => console.log(block)}
                     closeEditor={() => setEditedBlock(null)}
-                    maxSize={canvasRef && {width: canvasRef.current?.clientWidth!, height: canvasRef.current?.clientHeight!}}
                 />
             }
             <div ref={dropRef} className="slide-display--slide--canvas">
