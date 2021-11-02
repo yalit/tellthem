@@ -2,7 +2,7 @@ import {ImageBlock} from "../block";
 import {ReactElement} from "react";
 import {renderArgs, Renderer} from "./rendererInterface";
 
-export class ImageReactRenderer implements Renderer {
+export class ImageRenderer implements Renderer {
     supports(type: string): boolean {
         return type === 'react'
     }

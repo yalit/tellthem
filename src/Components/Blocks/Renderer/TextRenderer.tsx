@@ -3,7 +3,7 @@ import {ReactElement} from "react";
 import {renderArgs, Renderer} from "./rendererInterface";
 import {ReactStyler} from "./ReactStyler";
 
-export class TextReactRenderer implements Renderer {
+export class TextRenderer implements Renderer {
     reactStyler: ReactStyler = new ReactStyler()
 
     supports(type: string): boolean {
@@ -18,6 +18,6 @@ export class TextReactRenderer implements Renderer {
             args.onClick(block)
         }
 
-        return <div key={block.name+'-'+args.id} className={args.class ?? ''} style={{...blockStyle, ...args.style}} onClick={clickBlock}>{block.content}</div>
+        return <div key={block.id+'-'+args.id} className={args.class ?? ''} style={{...blockStyle, ...args.style}} onClick={clickBlock}>{block.content}</div>
     }
 }

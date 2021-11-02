@@ -70,7 +70,7 @@ $content-margin-padding: 5rem;
 
   .slide-display--menu {
     position: relative;
-    margin: 0 0 $default-margin;
+    margin: 0;
     width: $sidebar-width;
     height: calc(100vh - #{$header-height});
     box-sizing: border-box;
@@ -78,6 +78,9 @@ $content-margin-padding: 5rem;
     flex-direction: column;
     justify-content: flex-start;
     box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+    padding-bottom: $sidebar-action-height;
+    overflow: auto;
+    background: $white;
     &:last-child {
       margin: 0;
     }
@@ -104,7 +107,7 @@ $content-margin-padding: 5rem;
           font-size: 1.5rem;
         }
       }
-      &.menu--item--blocks {
+      &.menu--item--available--blocks {
         .slide-display--menu--item--data {
           display: flex;
           width: 100%;
@@ -137,9 +140,13 @@ $content-margin-padding: 5rem;
           top: $default-margin;
           right: $default-margin;
           cursor: pointer;
-          color: #922f2f;
           font-weight: bold;
-
+          .menu--editor--actions--close {
+            color: $delete-color;
+          }
+          .menu--editor--actions--edit {
+            color: $edit-color;
+          }
         }
       }
       input {
@@ -162,13 +169,16 @@ $content-margin-padding: 5rem;
       }
     }
     .slide-display--menu--actions {
-      position: absolute;
+      z-index: 100;
+      position: fixed;
+      box-sizing: border-box;
       bottom: 0;
-      width: 100%;
-      height: 60px;
-      box-shadow: rgba(0, 0, 0, 0.24) 0 3px 8px;
+      left: 0;
+      width: $sidebar-width;
+      height: $sidebar-action-height;
       display: flex;
       flex-direction: row-reverse;
+      background: $white;
       .slide-display--menu--actions--action {
         min-width: 50px;
         padding: $default-padding;

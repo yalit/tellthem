@@ -18,7 +18,7 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
     const [internalSlide, setInternalSlide] = useState<SlideData>(slide)
     const [editedBlock, setEditedBlock] = useState<Block | undefined>(undefined)
 
-    const UpdateSlide = (slideData: Partial<SlideData>):void => {
+    const UpdateSlide = (slideData: Partial<SlideData>): void => {
         const updatedSlide = {...internalSlide, ...slideData}
         setInternalSlide(updatedSlide)
         slideActions.updateSlide(updatedSlide)
@@ -38,7 +38,7 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
         setEditedBlock(undefined)
     }
 
-    const updateBlock = (id:string, blockData: Partial<Block>) => {
+    const updateBlock = (id: string, blockData: Partial<Block>) => {
         let updatedBlock = internalSlide.blocks.filter(internalBlock => internalBlock.id === id)
 
         if (updatedBlock.length === 0) return
@@ -64,8 +64,22 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
     return (
         <React.Fragment>
             <div id="slide-display">
-                <SlideMenu  closeSlide={onClose} currentSlide={internalSlide} updateSlide={UpdateSlide} editedBlock={editedBlock} updateBlock={updateBlock} closeEditor={closeEditor} deleteBlock={deleteBlock}/>
-                <Canvas slide={internalSlide} addBlock={addBlock} editBlock={editBlock} editedBlock={editedBlock}/>
+                <SlideMenu
+                    closeSlide={onClose}
+                    currentSlide={internalSlide}
+                    updateSlide={UpdateSlide}
+                    editedBlock={editedBlock}
+                    editBlock={editBlock}
+                    updateBlock={updateBlock}
+                    closeEditor={closeEditor}
+                    deleteBlock={deleteBlock}
+                />
+                <Canvas
+                    slide={internalSlide}
+                    addBlock={addBlock}
+                    editBlock={editBlock}
+                    editedBlock={editedBlock}
+                />
             </div>
         </React.Fragment>
     )

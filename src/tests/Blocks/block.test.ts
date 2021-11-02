@@ -1,5 +1,5 @@
 import {Block, ImageBlock, TextBlock} from "../../Components/Blocks/block";
-import {TextReactRenderer} from "../../Components/Blocks/Renderer/TextReactRenderer";
+import {TextRenderer} from "../../Components/Blocks/Renderer/TextRenderer";
 
 
 const fs = require('fs')
@@ -19,7 +19,7 @@ describe('Block test', () => {
 
     test('addRenderer adds correctly a renderer', () => {
         const block = new Block();
-        const renderer = new TextReactRenderer()
+        const renderer = new TextRenderer()
         block.addRenderer(renderer)
 
         expect(block.renderers).toHaveLength(1)
@@ -28,14 +28,14 @@ describe('Block test', () => {
 
     test('getRenderer returns null if no renderer matching', () => {
         const block = new Block();
-        const renderer = new TextReactRenderer()
+        const renderer = new TextRenderer()
         block.addRenderer(renderer)
         expect(block.getRenderer('any')).toBe(null)
     })
 
     test('getRenderer returns renderer when matching', () => {
         const block = new Block();
-        const renderer = new TextReactRenderer()
+        const renderer = new TextRenderer()
         block.addRenderer(renderer)
         expect(block.getRenderer('react')).toBe(renderer)
     })
@@ -44,12 +44,12 @@ describe('Block test', () => {
 describe('Text Block test', () => {
     test('Text Block created empty with name input used', () => {
         const block = new TextBlock()
-        expect(block.name).toBe('text')
+        expect(block.type).toBe('text')
     });
 
     test('Text Block created empty with displayName input used', () => {
         const block = new TextBlock()
-        expect(block.displayName).toBe('Text Block')
+        expect(block.displayName).toBe('Text')
     });
 
     test('Text Block created empty', () => {
@@ -67,12 +67,12 @@ describe('Text Block test', () => {
 describe('Image Block test', () => {
     test('Image Block created empty with name input used', () => {
         const block = new ImageBlock()
-        expect(block.name).toBe('img')
+        expect(block.type).toBe('img')
     });
 
     test('ImageBlock created empty with displayName input used', () => {
         const block = new ImageBlock()
-        expect(block.displayName).toBe('Image Block')
+        expect(block.displayName).toBe('Image')
     });
 
     test('Image Block created empty', () => {

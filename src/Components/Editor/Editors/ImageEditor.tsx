@@ -9,7 +9,7 @@ export const ImageEditor:React.FC<EditorProps> = ({block, onChange}) => {
     return (
         <>
             <SlideMenuItem title='Name' className="menu--item--editor--name" open={true}>
-                <InputField value={block.name} onChange={(name) => onChange(block.id,{name})}  inputName="name"/>
+                <InputField value={block.displayName} onChange={(displayName) => onChange(block.id,{displayName})} inputName="name"/>
             </SlideMenuItem>
 
             <SlideMenuItem title='Size' className="menu--item--editor--sizes">

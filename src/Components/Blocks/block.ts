@@ -2,8 +2,8 @@
  * Generic Block model ==> not to be used as-is but must be extended for Specific Blocks
  */
 import {renderArgs, Renderer} from "./Renderer/rendererInterface";
-import {TextReactRenderer} from "./Renderer/TextReactRenderer";
-import {ImageReactRenderer} from "./Renderer/ImageReactRenderer";
+import {TextRenderer} from "./Renderer/TextRenderer";
+import {ImageRenderer} from "./Renderer/ImageRenderer";
 
 const uniqid = require('uniqid')
 
@@ -13,12 +13,10 @@ export interface BlockPosition {
 }
 
 /**
- * TODO : Remove the name and use only displayName (or the contrary...) only id should be used to be the one
- * TODO : automatic update of the name af the creation (like in Excel or Powerpoint)?
+ * TODO : automatic update of the name at the creation (like in Excel or Powerpoint)?
  */
 export interface BlockData {
-    id: string ,
-    name: string ,
+    id?: string ,
     type: Readonly<string>,
     displayName: string,
     position: BlockPosition,
@@ -32,7 +30,6 @@ export interface BlockData {
 
 export class Block {
     id: string = uniqid()
-    name: string = this.id
     type: Readonly<string> = ''
     displayName: string = ''
     position: BlockPosition = {x: 0, y:0} //px by default
@@ -94,10 +91,9 @@ export class TextBlock extends Block {
 
     constructor(content: string = '') {
         super();
-        this.name = 'text'
         this.displayName = 'Text'
         this._content = content
-        this.renderers = [new TextReactRenderer()]
+        this.renderers = [new TextRenderer()]
     }
 }
 
@@ -108,10 +104,9 @@ export class ImageBlock extends Block {
 
     constructor() {
         super();
-        this.name = 'img'
         this.displayName = 'Image'
         this._content = ''
-        this.renderers = [new ImageReactRenderer()]
+        this.renderers = [new ImageRenderer()]
     }
 
     set content(content: string) {
