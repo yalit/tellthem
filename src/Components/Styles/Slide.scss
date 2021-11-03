@@ -143,7 +143,12 @@ $content-margin-padding: 5rem;
           right: $default-margin;
           cursor: pointer;
           font-weight: bold;
+          display: flex;
+          gap: $default-margin;
           .menu--editor--actions--close {
+            color: $delete-color;
+          }
+          .menu--editor--actions--delete {
             color: $delete-color;
           }
           .menu--editor--actions--edit {
