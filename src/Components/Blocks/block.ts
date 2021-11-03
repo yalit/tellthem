@@ -16,7 +16,7 @@ export interface BlockPosition {
  * TODO : automatic update of the name at the creation (like in Excel or Powerpoint)?
  */
 export interface BlockData {
-    id?: string ,
+    id?: string,
     type: Readonly<string>,
     displayName: string,
     position: BlockPosition,
@@ -29,7 +29,7 @@ export interface BlockData {
 }
 
 export class Block {
-    id: string = uniqid()
+    id: string = ''
     type: Readonly<string> = ''
     displayName: string = ''
     position: BlockPosition = {x: 0, y:0} //px by default

@@ -16,7 +16,7 @@ export default function getBlock(data: BlockData): Block {
             throw new Error("No type defined for this block : "+ data.type)
     }
 
-    if (!data.id) data.id = uniqid()
+    if (data.id === '') data.id = uniqid()
 
     block.id = data.id !
     block.displayName = data.displayName

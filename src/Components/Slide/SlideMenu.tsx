@@ -36,9 +36,9 @@ export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, c
                 <InputField value={currentSlide.title} onChange={(data) => updateSlide({title: data})} inputName='title'/>
             </SlideMenuItem>
             <SlideMenuItem title="Available Blocks" className="menu--item--available--blocks">
-                {availableBlocks.map(info => {
+                {availableBlocks.map((info, k) => {
                     return (
-                        <DraggableBlock key={info.block.id} block={info.block} classname="menu--item--available--block" type={DRAGGABLE_TYPE_NEW_BLOCK}>
+                        <DraggableBlock key={`${info.block.type}-${k}`} block={info.block} classname="menu--item--available--block" type={DRAGGABLE_TYPE_NEW_BLOCK}>
                                 <div className="icon"><FontAwesomeIcon icon={info.icon} /></div>
                                 <div className="block--name">{info.block.displayName}</div>
                         </DraggableBlock>
@@ -46,7 +46,7 @@ export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, c
                 })}
             </SlideMenuItem>
 
-            <SlideMenuItem title="Slide Blocks" className="menu--item--slide--blocks">
+            <SlideMenuItem title={`Slide Blocks (${currentSlide.blocks.length})`} className="menu--item--slide--blocks">
                 {currentSlide.blocks.map(block => {
                     return (
                         <CanvasBlockEditor
