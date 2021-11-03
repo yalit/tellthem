@@ -144,7 +144,7 @@ $content-margin-padding: 5rem;
           cursor: pointer;
           font-weight: bold;
           display: flex;
-          gap: $default-margin;
+          gap: calc(2*#{$default-margin});
           .menu--editor--actions--close {
             color: $delete-color;
           }
