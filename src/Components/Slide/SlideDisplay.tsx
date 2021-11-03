@@ -7,6 +7,8 @@ import {Canvas} from "./Canvas";
 import {Block} from "../Blocks/block";
 import {SlideMenu} from "./SlideMenu";
 import getBlock from "../Blocks/BlockFactory";
+import {Modal} from "../Modal";
+import {CanvasBlockDeleteConfirmation} from "../Editor/CanvasBlockDeleteConfirmation";
 
 type SlideDisplayProps = {
     slide: SlideData,
@@ -14,9 +16,23 @@ type SlideDisplayProps = {
     slideActions: AppSlideActionsType
 }
 
+type ModalData = {
+    display: boolean,
+    content: JSX.Element | null,
+    onClose: () => void,
+    className: string
+}
+
+const defaultModalData = {content: null, display: false, className:'', onClose: () => {throw new Error("the onClose of the ModalData must be set")}}
+
 function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
     const [internalSlide, setInternalSlide] = useState<SlideData>(slide)
     const [editedBlock, setEditedBlock] = useState<Block | undefined>(undefined)
+    const [modalData, setModalData] = useState<Partial<ModalData>>(defaultModalData)
+
+    const closeModal = () => {
+      setModalData(defaultModalData)
+    }
 
     const UpdateSlide = (slideData: Partial<SlideData>): void => {
         const updatedSlide = {...internalSlide, ...slideData}
@@ -55,6 +71,20 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
     }
 
     const deleteBlock = (block: Block) => {
+        const closeConfirmation = () => {
+            actualDeleteBlock(block)
+            closeModal()
+        }
+        console.log("Deletion requested", block)
+        setModalData({
+            className: "delete--block--confirmation",
+            display: true,
+            onClose: closeModal,
+            content: <CanvasBlockDeleteConfirmation block={block} onConfirm={closeConfirmation} onClose={closeModal}/>
+        })
+    }
+
+    const actualDeleteBlock = (block: Block) => {
         UpdateSlide({
             blocks: internalSlide.blocks.filter(internalBlock => internalBlock.id !== block.id)
         })
@@ -81,6 +111,9 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
                     editedBlock={editedBlock}
                 />
             </div>
+            <Modal display={modalData.display} onClose={modalData.onClose} className={modalData.className}>
+                {modalData.content}
+            </Modal>
         </React.Fragment>
     )
 }

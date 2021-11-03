@@ -25,7 +25,10 @@ export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, edit
                     <div className="" >{block.displayName + ' - ' + block.id}</div>
                     <div className="menu--item--editor--actions">
                         {edited ? (
-                            <div className="menu--editor--actions--close" onClick={closeEditor}><FontAwesomeIcon icon={"times"} /></div>
+                            <>
+                                <div className="menu--editor--actions--delete" onClick={() => deleteBlock(block)}><FontAwesomeIcon icon={"trash"} /></div>
+                                <div className="menu--editor--actions--close" onClick={closeEditor}><FontAwesomeIcon icon={"times"} /></div>
+                            </>
                         ) : (
                             <div className="menu--editor--actions--edit" onClick={() => editBlock(block)}><FontAwesomeIcon icon={"edit"} /></div>
                         )}
