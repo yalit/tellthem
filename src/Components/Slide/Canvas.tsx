@@ -1,7 +1,11 @@
-import {SlideData} from "./SlideData";
 import React, {useEffect, useRef, useState} from "react";
 import {useDrop, XYCoord} from "react-dnd";
-import {DRAGGABLE_TYPE_NEW_BLOCK, DraggableDragLayer} from "../Blocks/DraggableBlock";
+import {SlideData} from "./SlideData";
+import {
+    DRAGGABLE_TYPE_EDITED_BLOCK,
+    DRAGGABLE_TYPE_NEW_BLOCK, DraggableBlock,
+    DraggableDragLayer
+} from "../Blocks/DraggableBlock";
 import {Block} from "../Blocks/block";
 import getBlock from "../Blocks/BlockFactory";
 
@@ -17,50 +21,50 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
     const canvasRef = useRef<HTMLDivElement>(null)
     const [hoveringBlock, setHoveringBlock] = useState<Block|null>(null)
 
-    const [{ isActive, item, didDrop }, dropRef] = useDrop(() => ({
-        accept: DRAGGABLE_TYPE_NEW_BLOCK,
+
+    const [{ item, didDrop }, dropReference] = useDrop(() => ({
+        accept: [DRAGGABLE_TYPE_NEW_BLOCK, DRAGGABLE_TYPE_EDITED_BLOCK],
         collect: (monitor) => ({
             item: monitor.getItem(),
-            isActive: monitor.canDrop() && monitor.isOver(),
             didDrop: monitor.didDrop()
         })
     }))
 
-    //update Hovering Block when hover is Active
+    //update Hovering Block when new Block hover is Active
     useEffect(() => {
-        if (isActive && (hoveringBlock === null || hoveringBlock !== item )) {
-            setHoveringBlock(getBlock({...item} as Block))
-        } else if (!isActive){
-            setHoveringBlock(null)
-        }
-    }, [isActive])
+        if (hoveringBlock === item) return
+        setHoveringBlock(item)
+    }, [item])
 
     //set Edited Block based on the drop
     useEffect(() => {
-        if (didDrop && hoveringBlock !== null) {
-            const newBlock = getBlock(hoveringBlock)
-            addBlock(newBlock)
-            editBlock(newBlock)
-        }
-    }, [didDrop])
+        if (item === null || !didDrop) return
 
-    //When block is edited ==> no more hovering block
-    useEffect(() => {
-        setHoveringBlock(null)
-    }, [editedBlock])
+        let droppedBlock: Block = item
+
+        if (didDrop && droppedBlock.id === '') {
+            droppedBlock = getBlock({...item})
+            addBlock(droppedBlock)
+        }
+
+        editBlock(droppedBlock)
+
+    }, [didDrop])
 
     const updateHoveringBlockPosition = (position: XYCoord) => {
         if (hoveringBlock === null) return
 
-        let newHoveringBlock = getBlock(hoveringBlock)
+        let newHoveringBlock = hoveringBlock
         newHoveringBlock.position = position
         setHoveringBlock(newHoveringBlock)
+
+        if (newHoveringBlock.id !== '') editBlock(newHoveringBlock) //only if existing block
     }
 
     return (
         <>
             <div className="slide-display--slide">
-                <div ref={dropRef} className="slide-display--slide--canvas">
+                <div ref={dropReference} className="slide-display--slide--canvas">
                     <div ref={canvasRef} className="slide-display--slide--canvas--container">
                         <DraggableDragLayer
                             block={hoveringBlock}
@@ -68,8 +72,16 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
                             updateBlockPosition={updateHoveringBlockPosition}
 
                         />
-                        {slide.blocks.map((block, k) => {
-                            return block.render('react', {class: 'canvas--slide--block '+(editedBlock === block ? 'edited' : ''), onClick: editBlock, id: ""+k})
+                        {slide.blocks.map((block, key) => {
+                            return (
+                                <DraggableBlock key={block.id} block={block} classname={""} type={DRAGGABLE_TYPE_EDITED_BLOCK}>
+                                    {block.render('react', {
+                                        class: 'canvas--slide--block ' + (editedBlock === block ? 'edited' : ''),
+                                        onClick: editBlock,
+                                        id: `${key}`
+                                    })}
+                                </DraggableBlock>
+                            )
                         })}
                     </div>
                 </div>
