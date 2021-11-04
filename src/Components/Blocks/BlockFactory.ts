@@ -22,8 +22,7 @@ export default function getBlock(data: BlockData): Block {
     block.displayName = data.displayName
     block.position = data.position
     block.positionUnit = data.positionUnit
-    block.width = data.width
-    block.height = data.height
+    block.size = data.size
     block.sizeUnit = data.sizeUnit
     block._content = data._content
 

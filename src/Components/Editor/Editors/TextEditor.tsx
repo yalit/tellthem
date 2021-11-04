@@ -5,13 +5,13 @@ import {InputField} from "../Fields/InputField";
 import {CommonEditorFields} from "./CommonEditorFields";
 
 
-export const TextEditor:React.FC<EditorProps> = ({block, onChange}) => {
+export const TextEditor:React.FC<EditorProps> = (props) => {
     return (
         <>
-            <CommonEditorFields block={block} onChange={onChange} />
+            <CommonEditorFields {...props}/>
 
-            <SlideMenuItem title='Content' className="menu--item--editor--content" open={true}>
-                <InputField value={block.content} onChange={(_content) => onChange(block.id,{_content})}  inputName="content"/>
+            <SlideMenuItem title='Content' className="menu--item--editor--content" name="content" onOpen={props.onOpenSection} open={props.sections.content === true}>
+                <InputField value={props.block.content} onChange={(_content) => props.onChange(props.block.id,{_content})}  inputName="content"/>
             </SlideMenuItem>
         </>
     )

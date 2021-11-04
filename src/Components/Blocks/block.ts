@@ -1,9 +1,6 @@
 /**
  * Generic Block model ==> not to be used as-is but must be extended for Specific Blocks
  */
-import {renderArgs, Renderer} from "./Renderer/rendererInterface";
-import {TextRenderer} from "./Renderer/TextRenderer";
-import {ImageRenderer} from "./Renderer/ImageRenderer";
 
 const uniqid = require('uniqid')
 
@@ -12,33 +9,40 @@ export interface BlockPosition {
     y: number
 }
 
+export interface BlockSize {
+    width: number,
+    height: number
+}
+
+export const BLOCK_TYPE_TEXT = 'text'
+export const BLOCK_TYPE_IMAGE = 'img'
+
+type AvailableBlock = 'text' | 'img' | ''
+
+
 /**
  * TODO : automatic update of the name at the creation (like in Excel or Powerpoint)?
  */
 export interface BlockData {
     id?: string,
-    type: Readonly<string>,
+    type: Readonly<AvailableBlock>,
     displayName: string,
     position: BlockPosition,
     positionUnit: 'px' | 'mm' | '%',
-    width: number, //% by default
-    height: number , //% by default
+    size: BlockSize,
     sizeUnit: 'px' | 'mm' | '%',
     _content: any,
-    renderers: Array<Renderer>,
 }
 
 export class Block {
     id: string = ''
-    type: Readonly<string> = ''
+    type: Readonly<AvailableBlock> = ''
     displayName: string = ''
     position: BlockPosition = {x: 0, y:0} //px by default
     positionUnit: 'px' | 'mm' | '%' = '%'
-    width: number = 10 //% by default
-    height: number = 10 //% by default
+    size: BlockSize = {width: 10, height: 10}
     sizeUnit: 'px' | 'mm' | '%' = '%'
     _content: any
-    renderers: Array<Renderer> = []
 
     set content(content: string) {
         this._content = content
@@ -47,66 +51,29 @@ export class Block {
     get content(): any {
         return this._content
     }
-
-    /**
-     * Render the block for a specific rendering
-     * @param type
-     * @param args
-     */
-    render(type: string, args: renderArgs) {
-        const renderer = this.getRenderer(type)
-
-        if (renderer === null) {
-            throw new Error("No renderer existing for this Block and Type")
-        }
-
-        return renderer.render(this, args)
-    }
-
-    getRenderer(type: string): Renderer | null {
-        let renderers: Renderer[] = this.renderers.filter(r => r.supports(type))
-
-        if (renderers.length === 0) return null
-
-        else return renderers[0]
-    }
-
-    addRenderer(renderer: Renderer): Block {
-        this.renderers.push(renderer)
-        return this
-    }
-
-    /**
-     * @private
-     */
-    private renderAsReact(args: renderArgs) {
-        return this.render('react', args)
-    }
 }
 
 
 export class TextBlock extends Block {
     _content: string = ''
-    type = 'text'
+    type: Readonly<AvailableBlock> = BLOCK_TYPE_TEXT
 
     constructor(content: string = '') {
         super();
         this.displayName = 'Text'
         this._content = content
-        this.renderers = [new TextRenderer()]
     }
 }
 
 export class ImageBlock extends Block {
     _content: string = ''
     alt: string = ''
-    type = 'img'
+    type: Readonly<AvailableBlock> = BLOCK_TYPE_IMAGE
 
     constructor() {
         super();
         this.displayName = 'Image'
         this._content = ''
-        this.renderers = [new ImageRenderer()]
     }
 
     set content(content: string) {

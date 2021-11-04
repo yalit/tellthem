@@ -3,6 +3,7 @@ import {useDrag, useDragLayer, XYCoord} from "react-dnd";
 import {Block} from "./block";
 import {getEmptyImage} from "react-dnd-html5-backend";
 import {getPosition} from "../../Helpers/DOMHelper";
+import ReactBlockFactory from "./Renderer/ReactBlockFactory";
 
 interface DraggableBlockProps {
     children: React.ReactNode,
@@ -67,6 +68,6 @@ export const DraggableDragLayer: React.FC<DraggableDragLayerProps> = ({block, pa
     if (block === null || !isDragging) return null
 
     return(
-        block.render('react', {class: 'canvas--hovering--block', style: getItemPosition(currentOffset)})
+        <ReactBlockFactory key={"draggable-layer"} block={block} className={"canvas--hovering--block"} style={getItemPosition(currentOffset)} />
     )
 }

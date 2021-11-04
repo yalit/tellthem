@@ -1,4 +1,4 @@
-import React, {ReactElement} from "react";
+import React, {ReactElement, useState} from "react";
 import {Block} from "../Blocks/block";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {TextEditor} from "./Editors/TextEditor";
@@ -13,8 +13,14 @@ interface CanvasBlockEditorProps {
 }
 
 export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, editBlock, updateBlock, deleteBlock, closeEditor, edited}) => {
+    const [sections, setSections] = useState<{[key: string]: boolean}>({})
+
+    const updateSectionStatus = (sectionStatus: {[key: string]: boolean}) => {
+        setSections({...sections, ...sectionStatus})
+    }
+
     const blockEditors: { [type: string]: ReactElement } = {
-        'text': <TextEditor block={block} onChange={updateBlock} />,
+        'text': <TextEditor block={block} onChange={updateBlock} onOpenSection={updateSectionStatus} sections={sections}/>,
         'img': <div></div>
     }
 

@@ -4,17 +4,24 @@ import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 interface SlideMenuItemProps {
     className?: string,
     title: string,
-    open?: boolean
+    open?: boolean,
+    onOpen?: (sectionStatus: {[key: string]: boolean}) => void,
+    name: string
 }
 
-export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className , title, open = false}) => {
-    const [isOpen, setIsOpen] = useState(open)
+export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className , title, open = false, onOpen, name}) => {
+    const [isOpen, setIsOpen] = useState<boolean>(open)
 
     const caretIcon = (isOpen ? "caret-down" : 'caret-right')
 
+    const onClick = () => {
+        (onOpen !== undefined && onOpen({[name]: !isOpen}))
+        setIsOpen(!isOpen)
+    }
+
     return (
         <div className={`slide-display--menu--item ${className ? className : ''}`}>
-            <div className="slide-display--menu--item--title" onClick={() => setIsOpen(!isOpen)}>
+            <div className="slide-display--menu--item--title" onClick={onClick}>
                 <div>{title}</div>
                 <div className="slide-display--menu--item--caret">
                     <FontAwesomeIcon icon={caretIcon} />

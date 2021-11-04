@@ -8,8 +8,8 @@ export class ReactStyler {
             position: "absolute",
             top: block.position.y+block.positionUnit,
             left: block.position.x+block.positionUnit,
-            width: block.width+block.sizeUnit,
-            height: block.height+block.sizeUnit
+            width: block.size.width+block.sizeUnit,
+            height: block.size.height+block.sizeUnit
         }
     }
 }

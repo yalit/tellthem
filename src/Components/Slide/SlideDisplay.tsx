@@ -47,7 +47,7 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
     }
 
     const editBlock = (block: Block) => {
-        if (block !== editedBlock) setEditedBlock(block)
+        (block.id !== editedBlock?.id && setEditedBlock(block))
     }
 
     const closeEditor = () => {
@@ -107,6 +107,7 @@ function SlideDisplay({slide, onClose, slideActions}: SlideDisplayProps) {
                 <Canvas
                     slide={internalSlide}
                     addBlock={addBlock}
+                    updateBlock={updateBlock}
                     editBlock={editBlock}
                     editedBlock={editedBlock}
                 />
