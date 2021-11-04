@@ -82,6 +82,18 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
 
     const renderBlock = (block: Block) => {
 
+        if (block !== editedBlock) {
+            return (
+                <ReactBlockFactory
+                    key={block.id}
+                    block={block}
+                    onClick={editBlock}
+                    className={'canvas--slide--block ' + (editedBlock === block ? 'edited' : '')}
+                />
+            )
+        }
+
+        //only resizable during edition
         const resizableOptions: ResizableOptions = {
             edges: { top: true, left: true, bottom: true, right: true },
             listeners: {
