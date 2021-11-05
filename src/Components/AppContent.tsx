@@ -1,14 +1,9 @@
-import React from "react";
+import React, {useEffect} from "react";
 import {createSlide, SlideData} from "./Slide/SlideData";
 import './Styles/Slide.scss';
 import SlideCover from "./Slide/SlideCover";
 import SlideDisplay from "./Slide/SlideDisplay";
 import {AppSlideActionsType, useAppContext} from "../AppContext";
-
-export type AppContentProps = {
-    slides: SlideData[],
-    slideActions: AppSlideActionsType
-}
 
 export const DISPLAY_LIST = 'list'
 export const DISPLAY_DETAIL = 'detail'
@@ -21,6 +16,10 @@ type AppContentState = {
 const AppContent = () => {
     const [appState, useAppState] = React.useState<AppContentState>({display: DISPLAY_LIST, detailSlide:null})
     const {state, slideActions} = useAppContext()
+
+    useEffect(() => {
+        slideActions.setCurrentSlide(appState.detailSlide)
+    }, [appState.detailSlide])
 
     const canDisplayList = () => {
         return appState.display === DISPLAY_LIST;
