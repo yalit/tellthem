@@ -1,4 +1,4 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import {DRAGGABLE_TYPE_NEW_BLOCK, DraggableBlock} from "../Blocks/DraggableBlock";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Block, ImageBlock, TextBlock} from "../Blocks/block";
@@ -21,6 +21,8 @@ interface SlideMenuProps {
 }
 
 export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, closeSlide, editedBlock, editBlock, updateBlock, deleteBlock, closeEditor}) => {
+    const [slideBlockOpen, setSlideBlockOpen] = useState<boolean>(false)
+
     const availableBlocks: Array<{icon: IconProp, block: Block}> = [{
         icon: "font",
         block: new TextBlock()
@@ -29,6 +31,12 @@ export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, c
         block: new ImageBlock()
         }
     ]
+
+    useEffect(() => {
+        if (editedBlock !== undefined) {
+            setSlideBlockOpen(true)
+        }
+    },[editedBlock])
 
     return (
         <div className="slide-display--menu">
@@ -46,7 +54,7 @@ export const SlideMenu:React.FC<SlideMenuProps> = ({currentSlide, updateSlide, c
                 })}
             </SlideMenuItem>
 
-            <SlideMenuItem title={`Slide Blocks (${currentSlide.blocks.length})`} className="menu--item--slide--blocks" name="slide blocks">
+            <SlideMenuItem title={`Slide Blocks (${currentSlide.blocks.length})`} className="menu--item--slide--blocks" name="slide-blocks" open={slideBlockOpen} onOpen={(status) => setSlideBlockOpen(status['slide-blocks'])}>
                 {currentSlide.blocks.map(block => {
                     return (
                         <CanvasBlockEditor
