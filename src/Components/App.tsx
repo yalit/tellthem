@@ -12,12 +12,12 @@ library.add({faTrash, faTimes, faCaretDown,faCaretRight, faFont, faImage, faEdit
 function App(){
     // @ts-ignore
     return (
-        <React.Fragment>
-            <Header/>
-            <AppContextProvider>
+        <AppContextProvider>
+            <>
+                <Header/>
                 <AppContent />
-            </AppContextProvider>
-        </React.Fragment>
+            </>
+        </AppContextProvider>
     );
 }
 

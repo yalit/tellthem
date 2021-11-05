@@ -7,12 +7,14 @@ import SlidesLocalStorageProvider from "./Providers/SlidesLocalStorageProvider";
  * AppContext Types
  */
 export type AppContextProviderType = {
-    slides: SlideData[]
+    slides: SlideData[],
+    currentSlide: SlideData | null
 }
 export type AppSlideActionsType = {
     addSlide: (slide: SlideData) => void,
     updateSlide: (slide: SlideData) => void,
-    deleteSlide: (slide: SlideData) => void
+    deleteSlide: (slide: SlideData) => void,
+    setCurrentSlide: (slide: SlideData | null) => void
 }
 export type AppContextType = {
     state: AppContextProviderType,
@@ -38,7 +40,7 @@ export const useAppContext = () => React.useContext(AppContext);
 // @ts-ignore
 export const AppContextProvider: React.FC<{children: JSX.Element}> = ({children, ...props}) => {
     const storageKeySlides = mainKey+'slides'
-    const [state, setState] = React.useState<AppContextProviderType>({slides: []});
+    const [state, setState] = React.useState<AppContextProviderType>({slides: [], currentSlide: null});
 
     const slideActions: AppSlideActionsType = {
         addSlide: (slide: SlideData) => {
@@ -55,7 +57,11 @@ export const AppContextProvider: React.FC<{children: JSX.Element}> = ({children,
             setState({...state, slides: updateSlides})
         },
         deleteSlide: (slide: SlideData) => {
-            const newState = {...state, slides: [...state.slides].filter(tempSlide => slide.id !== tempSlide.id)}
+            const newState: AppContextProviderType = {...state, slides: [...state.slides].filter(tempSlide => slide.id !== tempSlide.id)}
+            setState(newState)
+        },
+        setCurrentSlide: (slide: SlideData | null) => {
+            const newState:AppContextProviderType = {...state, currentSlide: slide}
             setState(newState)
         }
     }
