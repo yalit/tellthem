@@ -9,8 +9,8 @@ interface SlideMenuItemProps {
     name: string
 }
 
-export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className , title, open = false, onOpen, name}) => {
-    const [isOpen, setIsOpen] = useState<boolean>(open)
+export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className , title, open, onOpen, name}) => {
+    const [isOpen, setIsOpen] = useState<boolean>(open || open !== undefined)
 
     const caretIcon = (isOpen ? "caret-down" : 'caret-right')
 
@@ -20,7 +20,7 @@ export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className 
     }
 
     useEffect(() => {
-        if (open !== isOpen) setIsOpen(open)
+        if (open !== isOpen && open !== undefined) setIsOpen(open)
     })
 
     return (
