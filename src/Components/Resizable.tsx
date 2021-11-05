@@ -1,19 +1,32 @@
 
 import interact from 'interactjs'
 import React, {ComponentType, FunctionComponent, useEffect, useRef} from "react";
-import {ResizableOptions} from "@interactjs/types/index";
+import {ResizableOptions, DraggableOptions} from "@interactjs/types/index";
 
-export function resizable (options: ResizableOptions): <P extends object>
+interface interactableProps {
+    resizableOptions?: ResizableOptions,
+    draggableOptions?: DraggableOptions
+}
+
+export function interactable (options: interactableProps): <P extends object>
     (Element: ComponentType<P>) => FunctionComponent<P> {
         return <P extends object>(Element: ComponentType<P>) => {
-            const ResizableComponent:FunctionComponent<P> = (props) => {
+            const InteractableComponent:FunctionComponent<P> = (props) => {
                 const resizableRef = useRef<HTMLElement>(null)
 
                 useEffect(() => {
                     if (resizableRef.current === null) return
 
-                    interact(resizableRef.current)
-                        .resizable(options)
+                    if (options.resizableOptions) {
+                        interact(resizableRef.current)
+                            .resizable(options.resizableOptions)
+                    }
+
+                    if (options.draggableOptions) {
+                        interact(resizableRef.current)
+                            .draggable(options.draggableOptions)
+                    }
+
                 }, [])
 
                 return (
@@ -21,6 +34,6 @@ export function resizable (options: ResizableOptions): <P extends object>
                 )
             }
 
-            return ResizableComponent
+            return InteractableComponent
         }
 }

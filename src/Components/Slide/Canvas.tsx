@@ -8,11 +8,10 @@ import {
 } from "../Blocks/DraggableBlock";
 import {Block, BlockSize} from "../Blocks/block";
 import getBlock from "../Blocks/BlockFactory";
-import {resizable} from "../Resizable";
+import {interactable} from "../Resizable";
 import ReactBlockFactory from "../Blocks/Renderer/ReactBlockFactory";
-import {ResizableOptions, Rect} from "@interactjs/types/index";
+import {ResizableOptions, Rect, DraggableOptions} from "@interactjs/types/index";
 import {getPosition} from "../../Helpers/DOMHelper";
-import interact from "interactjs";
 
 
 interface CanvasProps {
@@ -105,16 +104,17 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
             )
         }
 
-        const moveBlock = (rect: Rect) => {
+        //interactable only during edition
+        const resizeBlock = (rect: Rect) => {
             if (canvasSize === null || canvasEdges === null || rect.width === undefined || rect.height === undefined) return
 
             //forces the edges not out of the canvasEdges
             rect = {...rect, ...{
-                top: Math.max(canvasEdges.top!, rect.top),
-                bottom: Math.min(canvasEdges.bottom, rect.bottom),
-                left: Math.max(canvasEdges.left, rect.left),
-                right: Math.min(canvasEdges.right, rect.right)
-            }}
+                    top: Math.max(canvasEdges.top!, rect.top),
+                    bottom: Math.min(canvasEdges.bottom, rect.bottom),
+                    left: Math.max(canvasEdges.left, rect.left),
+                    right: Math.min(canvasEdges.right, rect.right)
+                }}
 
             const newPosition:XYCoord = {
                 x: (rect.left - canvasSize.x)/canvasSize.width*100,
@@ -129,39 +129,62 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
             updateEditedBlockPositionAndSize(newPosition, newSize)
         }
 
-        //only resizable during edition
+        const moveBlock = (rect: Rect) => {
+            if (canvasSize === null || canvasEdges === null || rect.width === undefined || rect.height === undefined) return
+
+            //constrain the moved block inside Canvas
+            if (rect.left < canvasEdges.left) {
+                rect = {...rect, ...{left: canvasEdges.left, right: canvasEdges.left+rect.width!}}
+            }
+            if (rect.top < canvasEdges.top) {
+                rect = {...rect, ...{top: canvasEdges.top, bottom: canvasEdges.top+rect.height!}}
+            }
+            if (rect.right > canvasEdges.right) {
+                rect = {...rect, ...{right: canvasEdges.right, left: canvasEdges.right-rect.width!}}
+            }
+            if (rect.bottom > canvasEdges.bottom) {
+                rect = {...rect, ...{bottom: canvasEdges.bottom, top: canvasEdges.bottom-rect.height!}}
+            }
+
+            const newPosition:XYCoord = {
+                x: (rect.left - canvasSize.x)/canvasSize.width*100,
+                y: (rect.top - canvasSize.y)/canvasSize.height*100
+            }
+
+            const newSize:BlockSize =  {
+                width: (rect.width!/canvasSize.width)*100,
+                height: (rect.height!/canvasSize.height)*100
+            }
+            updateEditedBlockPositionAndSize(newPosition, newSize)
+        }
+
         const resizableOptions: ResizableOptions = {
             edges: { top: true, left: true, bottom: true, right: true },
             listeners: {
                 move: (event)=> {
+                    resizeBlock(event.rect)
+                }
+            }
+        }
+
+        const draggableOptions: DraggableOptions =  {
+            listeners: {
+                move (event) {
                     moveBlock(event.rect)
                 }
             }
         }
 
-        const ResizableComponent = resizable(resizableOptions)(ReactBlockFactory)
+        const InteractableComponent = interactable({resizableOptions, draggableOptions})(ReactBlockFactory)
 
         return (
-            <ResizableComponent
+            <InteractableComponent
                 key={block.id}
                 block={block}
                 onClick={editBlock}
                 className={'canvas--slide--block ' + (editedBlock === block ? 'edited' : '')}
             />
         )
-        /*return (
-            <Resizable
-                key={block.id}>
-                <DraggableBlock key={block.id} block={block} classname={""} type={DRAGGABLE_TYPE_EDITED_BLOCK}>
-                    <ReactBlock
-                        block={block}
-                        onClick={editBlock}
-                        className={'canvas--slide--block ' + (editedBlock === block ? 'edited' : '')}
-                    />
-                </DraggableBlock>
-            </Resizable>
-        )*/
-
     }
 
     return (
