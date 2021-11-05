@@ -1,4 +1,4 @@
-#TellThem - WIP
+# TellThem - WIP
 
 A small project to allow the generation of slides with basic blocks to be exported at the end in PDF or Powerpoint
 
