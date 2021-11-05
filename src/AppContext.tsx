@@ -55,6 +55,8 @@ export const AppContextProvider: React.FC<{children: JSX.Element}> = ({children,
                 }
             })
             setState({...state, slides: updateSlides})
+
+            if (state.currentSlide?.id === updatedSlide.id) slideActions.setCurrentSlide(updatedSlide)
         },
         deleteSlide: (slide: SlideData) => {
             const newState: AppContextProviderType = {...state, slides: [...state.slides].filter(tempSlide => slide.id !== tempSlide.id)}
