@@ -104,16 +104,17 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
             )
         }
 
-        const moveBlock = (rect: Rect) => {
+        //interactable only during edition
+        const resizeBlock = (rect: Rect) => {
             if (canvasSize === null || canvasEdges === null || rect.width === undefined || rect.height === undefined) return
 
             //forces the edges not out of the canvasEdges
             rect = {...rect, ...{
-                top: Math.max(canvasEdges.top!, rect.top),
-                bottom: Math.min(canvasEdges.bottom, rect.bottom),
-                left: Math.max(canvasEdges.left, rect.left),
-                right: Math.min(canvasEdges.right, rect.right)
-            }}
+                    top: Math.max(canvasEdges.top!, rect.top),
+                    bottom: Math.min(canvasEdges.bottom, rect.bottom),
+                    left: Math.max(canvasEdges.left, rect.left),
+                    right: Math.min(canvasEdges.right, rect.right)
+                }}
 
             const newPosition:XYCoord = {
                 x: (rect.left - canvasSize.x)/canvasSize.width*100,
@@ -128,12 +129,40 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
             updateEditedBlockPositionAndSize(newPosition, newSize)
         }
 
-        //only resizable during edition
+        const moveBlock = (rect: Rect) => {
+            if (canvasSize === null || canvasEdges === null || rect.width === undefined || rect.height === undefined) return
+
+            //constrain the moved block inside Canvas
+            if (rect.left < canvasEdges.left) {
+                rect = {...rect, ...{left: canvasEdges.left, right: canvasEdges.left+rect.width!}}
+            }
+            if (rect.top < canvasEdges.top) {
+                rect = {...rect, ...{top: canvasEdges.top, bottom: canvasEdges.top+rect.height!}}
+            }
+            if (rect.right > canvasEdges.right) {
+                rect = {...rect, ...{right: canvasEdges.right, left: canvasEdges.right-rect.width!}}
+            }
+            if (rect.bottom > canvasEdges.bottom) {
+                rect = {...rect, ...{bottom: canvasEdges.bottom, top: canvasEdges.bottom-rect.height!}}
+            }
+
+            const newPosition:XYCoord = {
+                x: (rect.left - canvasSize.x)/canvasSize.width*100,
+                y: (rect.top - canvasSize.y)/canvasSize.height*100
+            }
+
+            const newSize:BlockSize =  {
+                width: (rect.width!/canvasSize.width)*100,
+                height: (rect.height!/canvasSize.height)*100
+            }
+            updateEditedBlockPositionAndSize(newPosition, newSize)
+        }
+
         const resizableOptions: ResizableOptions = {
             edges: { top: true, left: true, bottom: true, right: true },
             listeners: {
                 move: (event)=> {
-                    moveBlock(event.rect)
+                    resizeBlock(event.rect)
                 }
             }
         }
