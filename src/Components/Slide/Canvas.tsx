@@ -8,11 +8,10 @@ import {
 } from "../Blocks/DraggableBlock";
 import {Block, BlockSize} from "../Blocks/block";
 import getBlock from "../Blocks/BlockFactory";
-import {resizable} from "../Resizable";
+import {interactable} from "../Resizable";
 import ReactBlockFactory from "../Blocks/Renderer/ReactBlockFactory";
-import {ResizableOptions, Rect} from "@interactjs/types/index";
+import {ResizableOptions, Rect, DraggableOptions} from "@interactjs/types/index";
 import {getPosition} from "../../Helpers/DOMHelper";
-import interact from "interactjs";
 
 
 interface CanvasProps {
@@ -139,29 +138,24 @@ export const Canvas: React.FC<CanvasProps> = ({slide, addBlock, editBlock, edite
             }
         }
 
-        const ResizableComponent = resizable(resizableOptions)(ReactBlockFactory)
+        const draggableOptions: DraggableOptions =  {
+            listeners: {
+                move (event) {
+                    moveBlock(event.rect)
+                }
+            }
+        }
+
+        const InteractableComponent = interactable({resizableOptions, draggableOptions})(ReactBlockFactory)
 
         return (
-            <ResizableComponent
+            <InteractableComponent
                 key={block.id}
                 block={block}
                 onClick={editBlock}
                 className={'canvas--slide--block ' + (editedBlock === block ? 'edited' : '')}
             />
         )
-        /*return (
-            <Resizable
-                key={block.id}>
-                <DraggableBlock key={block.id} block={block} classname={""} type={DRAGGABLE_TYPE_EDITED_BLOCK}>
-                    <ReactBlock
-                        block={block}
-                        onClick={editBlock}
-                        className={'canvas--slide--block ' + (editedBlock === block ? 'edited' : '')}
-                    />
-                </DraggableBlock>
-            </Resizable>
-        )*/
-
     }
 
     return (
