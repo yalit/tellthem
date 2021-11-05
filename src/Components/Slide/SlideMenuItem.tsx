@@ -1,4 +1,4 @@
-import React, {useState} from "react";
+import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
 interface SlideMenuItemProps {
@@ -18,6 +18,10 @@ export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className 
         (onOpen !== undefined && onOpen({[name]: !isOpen}))
         setIsOpen(!isOpen)
     }
+
+    useEffect(() => {
+        if (open !== isOpen) setIsOpen(open)
+    })
 
     return (
         <div className={`slide-display--menu--item ${className ? className : ''}`}>
