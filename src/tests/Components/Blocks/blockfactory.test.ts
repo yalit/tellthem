@@ -1,5 +1,5 @@
-import getBlock from "../../Components/Blocks/BlockFactory";
-import {BlockData} from "../../Components/Blocks/block";
+import getBlock from "../../../Components/Blocks/BlockFactory";
+import {BlockData} from "../../../Components/Blocks/block";
 
 describe("Block Factory", () => {
 
@@ -7,13 +7,11 @@ describe("Block Factory", () => {
         let blockData: BlockData = {
             displayName: 'Text Block',
             type: 'text',
-            width: 10,
-            height: 50,
+            size: {width: 10, height: 50},
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
-            _content: "A super content",
-            renderers: []
+            _content: "A super content"
         }
 
         const block = getBlock(blockData)
@@ -21,8 +19,8 @@ describe("Block Factory", () => {
         expect(block.id).not.toBeNull()
         expect(block.type).toBe('text')
         expect(block.displayName).toBe('Text Block')
-        expect(block.width).toBe(10)
-        expect(block.height).toBe(50)
+        expect(block.size.width).toBe(10)
+        expect(block.size.height).toBe(50)
         expect(block.sizeUnit).toBe('px')
         expect(block.position.x).toBe(15)
         expect(block.position.y).toBe(15)
@@ -35,13 +33,11 @@ describe("Block Factory", () => {
             id: "ID-001",
             displayName: 'Text Block',
             type: 'text',
-            width: 10,
-            height: 50,
+            size: {width: 10, height: 50},
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
             _content: "A super content",
-            renderers: []
         }
 
         const block = getBlock(blockData)
@@ -53,13 +49,11 @@ describe("Block Factory", () => {
         let blockData: BlockData = {
             displayName: 'Image Block',
             type: 'img',
-            width: 10,
-            height: 50,
+            size: {width: 10, height: 50},
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
             _content: "A super content",
-            renderers: []
         }
 
         const block = getBlock(blockData)
@@ -74,13 +68,11 @@ describe("Block Factory", () => {
             id: "ID-001",
             displayName: 'Image Block',
             type: 'img',
-            width: 10,
-            height: 50,
+            size: {width: 10, height: 50},
             sizeUnit: "px",
             position: {x: 15, y:15},
             positionUnit: "mm",
             _content: "A super content",
-            renderers: []
         }
 
         const block = getBlock(blockData)

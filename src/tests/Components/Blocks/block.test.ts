@@ -1,45 +1,8 @@
-import {Block, ImageBlock, TextBlock} from "../../Components/Blocks/block";
-import {TextRenderer} from "../../Components/Blocks/Renderer/TextRenderer";
+import {Block, ImageBlock, TextBlock} from "../../../Components/Blocks/block";
 
 
 const fs = require('fs')
 const path = require('path');
-
-describe('Block test', () => {
-
-    test('empty renderers at creation', () => {
-        const block = new Block()
-        expect(block.renderers).toHaveLength(0)
-    })
-
-    test('getRenderer returns null if no renderer at all', () => {
-        const block = new Block();
-        expect(block.getRenderer('any')).toBe(null)
-    })
-
-    test('addRenderer adds correctly a renderer', () => {
-        const block = new Block();
-        const renderer = new TextRenderer()
-        block.addRenderer(renderer)
-
-        expect(block.renderers).toHaveLength(1)
-        expect(block.renderers[0]).toBe(renderer)
-    })
-
-    test('getRenderer returns null if no renderer matching', () => {
-        const block = new Block();
-        const renderer = new TextRenderer()
-        block.addRenderer(renderer)
-        expect(block.getRenderer('any')).toBe(null)
-    })
-
-    test('getRenderer returns renderer when matching', () => {
-        const block = new Block();
-        const renderer = new TextRenderer()
-        block.addRenderer(renderer)
-        expect(block.getRenderer('react')).toBe(renderer)
-    })
-})
 
 describe('Text Block test', () => {
     test('Text Block created empty with name input used', () => {
