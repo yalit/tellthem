@@ -10,12 +10,14 @@ export type AppContextProviderType = {
     slides: SlideData[],
     currentSlide: SlideData | null
 }
+
 export type AppSlideActionsType = {
     addSlide: (slide: SlideData) => void,
     updateSlide: (slide: SlideData) => void,
     deleteSlide: (slide: SlideData) => void,
     setCurrentSlide: (slide: SlideData | null) => void
 }
+
 export type AppContextType = {
     state: AppContextProviderType,
     slideActions: AppSlideActionsType
@@ -25,9 +27,6 @@ export type AppContextType = {
  * Storage elements
  */
 const mainKey = 'tellThem__'
-// @ts-ignore
-const localStorage:StorageProviderInterface = new SlidesLocalStorageProvider()
-
 
 /**
  * AppContext
@@ -71,13 +70,13 @@ export const AppContextProvider: React.FC<{children: JSX.Element}> = ({children,
     //ensure the change is updated in storage
     React.useEffect(() => {
         if (state.slides.length !== 0) {
-            localStorage.save(storageKeySlides, state.slides);
+            SlidesLocalStorageProvider.save(storageKeySlides, state.slides);
         }
     }, [state.slides]);
 
     //ensure the data is retrieved at the beginning of the load
     React.useEffect(() => {
-        localStorage.get(storageKeySlides).then((data: SlideData[]) => {
+        SlidesLocalStorageProvider.get(storageKeySlides).then((data: SlideData[]) => {
             setState({...state, slides: data.map((d) => createSlide(d))})
         })
     }, []);

@@ -1,25 +1,21 @@
-import ProviderInterface from "./StorageProviderInterface";
 
+const localStorage:Storage = window.localStorage
 
-class SlidesLocalStorageProvider implements ProviderInterface {
-    localStorage:Storage = window.localStorage
-
-    // @ts-ignore
-    async delete(itemId: any): Promise<boolean> {
+const SlidesLocalStorageProvider = {
+    delete: async function(itemId: any): Promise<boolean> {
         localStorage.removeItem(itemId)
         return true;
-    }
+    },
 
-    async get(itemId: string): Promise<any[] | []> {
+    get: async function (itemId: string): Promise<any[] | []> {
         const localItem = localStorage.getItem(itemId)
         if (localItem) return JSON.parse(localStorage.getItem(itemId) as string);
 
-        await this.save(itemId, [])
+        await SlidesLocalStorageProvider.save(itemId, [])
         return []
-    }
+    },
 
-    // @ts-ignore
-    async save(itemId: string, item: any[]): Promise<any[]> {
+    save: async function (itemId: string, item: any[]): Promise<any[]> {
         localStorage.setItem(itemId, JSON.stringify(item))
         return item
     }
