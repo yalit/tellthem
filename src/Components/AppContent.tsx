@@ -42,10 +42,6 @@ const AppContent = () => {
         })
     }
 
-    function DeleteExistingSlide(slide: SlideData) {
-        slideActions.deleteSlide(slide)
-    }
-
     function DisplayList() {
         useAppState({
             display: DISPLAY_LIST,
@@ -56,8 +52,8 @@ const AppContent = () => {
     if (canDisplayList()) {
         return (
             <div id="slide-list">
-                <SlideCover key={'slide-id-new'} slide={null} onAdd={DisplayNewSlide} onShow={DisplayExistingSlide} onDelete={DeleteExistingSlide} />
-                {state.slides.map(slide => <SlideCover key={'slide-id-'+slide.id} slide={slide} onAdd={DisplayNewSlide} onShow={DisplayExistingSlide} onDelete={DeleteExistingSlide} />)}
+                <SlideCover key={'slide-id-new'} slide={null} onAdd={DisplayNewSlide} onShow={DisplayExistingSlide} onDelete={slideActions.deleteSlide} />
+                {state.slides.map(slide => <SlideCover key={'slide-id-'+slide.id} slide={slide} onAdd={DisplayNewSlide} onShow={DisplayExistingSlide} onDelete={slideActions.deleteSlide} />)}
             </div>
         )
     } else {

@@ -1,6 +1,11 @@
 import React, {useEffect, useState} from "react";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faCaretDown, faCaretRight} from "@fortawesome/free-solid-svg-icons";
+
+library.add({faCaretDown,faCaretRight})
+
 interface SlideMenuItemProps {
     className?: string,
     title: string,

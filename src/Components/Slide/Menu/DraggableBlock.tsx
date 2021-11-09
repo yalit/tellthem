@@ -1,9 +1,9 @@
 import React, {useEffect} from "react";
 import {useDrag, useDragLayer, XYCoord} from "react-dnd";
-import {Block} from "./block";
+import {Block} from "../../Blocks/block";
 import {getEmptyImage} from "react-dnd-html5-backend";
-import {getPosition} from "../../Helpers/DOMHelper";
-import ReactBlockFactory from "./Renderer/ReactBlockFactory";
+import {getPosition} from "../../../Helpers/DOMHelper";
+import ReactBlockFactory from "../../Blocks/Renderer/ReactBlockFactory";
 
 interface DraggableBlockProps {
     children: React.ReactNode,

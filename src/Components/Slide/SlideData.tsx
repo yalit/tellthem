@@ -1,5 +1,5 @@
 import {Block} from "../Blocks/block";
-import getBlock from "../Blocks/BlockFactory";
+import {getBlock} from "../Blocks/block";
 
 const uniqid = require('uniqid');
 

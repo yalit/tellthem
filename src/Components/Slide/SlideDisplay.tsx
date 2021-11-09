@@ -3,10 +3,10 @@ import {SlideData} from "./SlideData";
 
 import '../Styles/Slide.scss'
 import {AppSlideActionsType} from "../../AppContext";
-import {Canvas} from "./Canvas";
+import {Canvas} from "./Canvas/Canvas";
 import {Block} from "../Blocks/block";
-import {SlideMenu} from "./SlideMenu";
-import getBlock from "../Blocks/BlockFactory";
+import {SlideMenu} from "./Menu/SlideMenu";
+import {getBlock} from "../Blocks/block";
 import {Modal} from "../Modal";
 import {CanvasBlockDeleteConfirmation} from "../Editor/CanvasBlockDeleteConfirmation";
 

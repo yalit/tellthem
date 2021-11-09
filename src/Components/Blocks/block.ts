@@ -21,7 +21,7 @@ type AvailableBlock = 'text' | 'img' | ''
 
 
 /**
- * TODO : automatic update of the name at the creation (like in Excel or Powerpoint)?
+ * TODO : automatic update of the name of the block at the creation (like in Excel or Powerpoint)?
  */
 export interface BlockData {
     id?: string,
@@ -106,4 +106,31 @@ export class ImageBlock extends Block {
             reader.readAsDataURL(file);
         })
     }
+}
+
+export function getBlock(data: BlockData): Block {
+    let block: Block
+
+    switch(data.type) {
+        case 'text':
+            block = new TextBlock()
+            break;
+        case 'img':
+            block = new ImageBlock()
+            break;
+        default:
+            throw new Error("No type defined for this block : "+ data.type)
+    }
+
+    if (data.id === '') data.id = uniqid()
+
+    block.id = data.id !
+    block.displayName = data.displayName
+    block.position = data.position
+    block.positionUnit = data.positionUnit
+    block.size = data.size
+    block.sizeUnit = data.sizeUnit
+    block._content = data._content
+
+    return block
 }

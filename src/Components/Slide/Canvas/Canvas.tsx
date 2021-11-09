@@ -1,17 +1,17 @@
 import React, {useEffect, useRef, useState} from "react";
 import {useDrop, XYCoord} from "react-dnd";
-import {SlideData} from "./SlideData";
+import {SlideData} from "../SlideData";
 import {
     DRAGGABLE_TYPE_EDITED_BLOCK,
     DRAGGABLE_TYPE_NEW_BLOCK,
     DraggableDragLayer
-} from "../Blocks/DraggableBlock";
-import {Block, BlockSize} from "../Blocks/block";
-import getBlock from "../Blocks/BlockFactory";
-import {interactable} from "../Resizable";
-import ReactBlockFactory from "../Blocks/Renderer/ReactBlockFactory";
+} from "../Menu/DraggableBlock";
+import {Block, BlockSize} from "../../Blocks/block";
+import {getBlock} from "../../Blocks/block";
+import {interactable} from "../../Resizable";
+import ReactBlockFactory from "../../Blocks/Renderer/ReactBlockFactory";
 import {ResizableOptions, Rect, DraggableOptions} from "@interactjs/types/index";
-import {getPosition} from "../../Helpers/DOMHelper";
+import {getPosition} from "../../../Helpers/DOMHelper";
 
 
 interface CanvasProps {
