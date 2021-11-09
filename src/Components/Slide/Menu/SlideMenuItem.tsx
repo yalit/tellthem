@@ -6,7 +6,7 @@ import {faCaretDown, faCaretRight} from "@fortawesome/free-solid-svg-icons";
 
 library.add({faCaretDown,faCaretRight})
 
-interface SlideMenuItemProps {
+export type SlideMenuItemProps = {
     className?: string,
     title: string,
     open?: boolean,
@@ -14,7 +14,7 @@ interface SlideMenuItemProps {
     name: string
 }
 
-export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className , title, open, onOpen, name}) => {
+const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className , title, open, onOpen, name}) => {
     const [isOpen, setIsOpen] = useState<boolean>(open || open !== undefined)
 
     const caretIcon = (isOpen ? "caret-down" : 'caret-right')
@@ -33,7 +33,7 @@ export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className 
             <div className="slide-display--menu--item--title" onClick={onClick}>
                 <div>{title}</div>
                 <div className="slide-display--menu--item--caret">
-                    <FontAwesomeIcon icon={caretIcon} />
+                    <FontAwesomeIcon icon={caretIcon} data-testid={`switch-display-menu-item-${name}`} />
                 </div>
             </div>
             {isOpen && (
@@ -45,3 +45,5 @@ export const SlideMenuItem:React.FC<SlideMenuItemProps> = ({children, className 
         </div>
     )
 }
+
+export default SlideMenuItem

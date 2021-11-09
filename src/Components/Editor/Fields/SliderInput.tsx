@@ -9,7 +9,7 @@ export interface SliderInputProps {
     name: string
 }
 
-export const SliderInput:React.FC<SliderInputProps> = ({value, min, max, step = 1, onChange = null, name}) => {
+const SliderInput:React.FC<SliderInputProps> = ({value, min, max, step = 1, onChange = null, name}) => {
     const [internalValue, setInternalValue] = useState(value)
 
     const updateValue = (event: React.ChangeEvent<HTMLInputElement>) => {
@@ -23,3 +23,5 @@ export const SliderInput:React.FC<SliderInputProps> = ({value, min, max, step = 
         <input aria-label={name} type="range" min={min} max={max} value={internalValue} step={step} onChange={updateValue} />
     )
 }
+
+export default SliderInput

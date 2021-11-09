@@ -1,12 +1,12 @@
 
 import React from "react";
 
-import {SlideMenuItem} from "../../Slide/Menu/SlideMenuItem";
-import {InputField} from "../Fields/InputField";
-import {SliderInput} from "../Fields/SliderInput";
+import SlideMenuItem from "../../Slide/Menu/SlideMenuItem";
+import InputField from "../Fields/InputField";
+import SliderInput from "../Fields/SliderInput";
 import {EditorProps} from "./EditorProps";
 
-export const CommonEditorFields:React.FC<EditorProps> = ({children,block, onChange, onOpenSection, sections}) => {
+export const CommonEditorFields:React.FC<EditorProps> = ({block, onChange, onOpenSection, sections}) => {
     return (
         <>
             <SlideMenuItem title='Name' className="menu--item--editor--name" name="name" onOpen={onOpenSection} open={sections.name}>
