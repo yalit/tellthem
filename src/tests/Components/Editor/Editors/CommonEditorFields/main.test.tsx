@@ -20,7 +20,7 @@ describe('Common Editor fields displays menu item', ()=> {
         expect(screen.getByRole('textbox', {name: 'name'})).not.toBeNull()
     })
 
-    test('ensure onChange is triggered', () => {
+    test('ensure name onChange is triggered', () => {
         const onChange = jest.fn()
 
         render(<CommonEditorFields block={testBlock} onChange={onChange} onOpenSection={() => null} sections={{name: true}} />)
@@ -30,11 +30,53 @@ describe('Common Editor fields displays menu item', ()=> {
         expect(onChange).toBeCalledWith(testBlock.id, {displayName: "New Content"})
     })
 
+    test('ensure name onOpenSection is triggered', () => {
+        const onOpenSection = jest.fn()
+        render(<CommonEditorFields block={testBlock} onChange={() => null} onOpenSection={onOpenSection} sections={{name: true}} />)
+
+        const openSection_button = screen.getByTestId(`switch-display-menu-item-name`)
+        fireEvent.click(openSection_button)
+        expect(onOpenSection).toBeCalledTimes(1)
+        expect(onOpenSection).toBeCalledWith({name: false})
+    })
+
     test('displays size section', () => {
         render(<CommonEditorFields block={testBlock} onChange={() => null} onOpenSection={() => null} sections={{size: true}} />)
 
         expect(screen.getByRole('slider', {name: 'width'})).not.toBeNull()
         expect(screen.getByRole('slider', {name: 'height'})).not.toBeNull()
+    })
+
+    test('ensure size width onChange is triggered', () => {
+        const onChange = jest.fn()
+
+        render(<CommonEditorFields block={testBlock} onChange={onChange} onOpenSection={() => null} sections={{size: true}} />)
+
+        const width_slider = screen.getByRole('slider', {name: 'width'})
+        fireEvent.change(width_slider, {target: {value: 40}})
+        expect(onChange).toBeCalledTimes(1)
+        expect(onChange).toBeCalledWith(testBlock.id, {size: {width: 40, height: testBlock.size.height}})
+    })
+
+    test('ensure size height onChange is triggered', () => {
+        const onChange = jest.fn()
+
+        render(<CommonEditorFields block={testBlock} onChange={onChange} onOpenSection={() => null} sections={{size: true}} />)
+
+        const height_slider = screen.getByRole('slider', {name: 'height'})
+        fireEvent.change(height_slider, {target: {value: 40}})
+        expect(onChange).toBeCalledTimes(1)
+        expect(onChange).toBeCalledWith(testBlock.id, {size: {width: testBlock.size.width, height: 40}})
+    })
+
+    test('ensure size onOpenSection is triggered', () => {
+        const onOpenSection = jest.fn()
+        render(<CommonEditorFields block={testBlock} onChange={() => null} onOpenSection={onOpenSection} sections={{size: true}} />)
+
+        const openSection_button = screen.getByTestId(`switch-display-menu-item-size`)
+        fireEvent.click(openSection_button)
+        expect(onOpenSection).toBeCalledTimes(1)
+        expect(onOpenSection).toBeCalledWith({size: false})
     })
 })
 
