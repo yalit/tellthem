@@ -6,7 +6,7 @@ import {SlideData} from "../SlideData";
 import InputField from "../../Editor/Fields/InputField";
 import SlideMenuItem from "./SlideMenuItem";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
-import {CanvasBlockEditor} from "../../Editor/CanvasBlockEditor";
+import CanvasBlockEditor from "../../Editor/CanvasBlockEditor";
 
 
 interface SlideMenuProps {

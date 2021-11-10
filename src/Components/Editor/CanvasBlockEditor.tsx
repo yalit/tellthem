@@ -1,7 +1,15 @@
 import React, {ReactElement, useState} from "react";
 import {Block} from "../Blocks/block";
+
+import {library} from "@fortawesome/fontawesome-svg-core";
+import {faTrash, faTimes, faEdit} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import TextEditor from "./Editors/TextEditor";
+library.add({
+    edit: faEdit,
+    times: faTimes,
+    trash: faTrash
+})
 
 interface CanvasBlockEditorProps {
     block: Block,
@@ -12,7 +20,7 @@ interface CanvasBlockEditorProps {
     closeEditor: () => void
 }
 
-export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, editBlock, updateBlock, deleteBlock, closeEditor, edited}) => {
+const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, editBlock, updateBlock, deleteBlock, closeEditor, edited}) => {
     const [sections, setSections] = useState<{[key: string]: boolean}>({})
 
     const updateSectionStatus = (sectionStatus: {[key: string]: boolean}) => {
@@ -45,3 +53,5 @@ export const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, edit
         </div>
     )
 }
+
+export default CanvasBlockEditor
