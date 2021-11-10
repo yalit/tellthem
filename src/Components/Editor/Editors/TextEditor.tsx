@@ -2,7 +2,7 @@ import React from "react";
 import {EditorProps} from "./EditorProps";
 import SlideMenuItem from "../../Slide/Menu/SlideMenuItem";
 import InputField from "../Fields/InputField";
-import {CommonEditorFields} from "./CommonEditorFields";
+import CommonEditorFields from "./CommonEditorFields";
 
 
 export const TextEditor:React.FC<EditorProps> = (props) => {

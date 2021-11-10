@@ -1,5 +1,5 @@
 import {render} from "@testing-library/react";
-import {CommonEditorFields} from "../../../../../Components/Editor/Editors/CommonEditorFields";
+import CommonEditorFields from "../../../../../Components/Editor/Editors/CommonEditorFields";
 import {getBlock} from "../../../../../Components/Blocks/block";
 
 //Mock Slide Menu Item
