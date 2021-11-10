@@ -1,7 +1,7 @@
 import React from "react";
 import {getBlock} from "../../../../../Components/Blocks/block";
 import {render} from "@testing-library/react";
-import {TextEditor} from "../../../../../Components/Editor/Editors/TextEditor";
+import TextEditor from "../../../../../Components/Editor/Editors/TextEditor";
 
 const mock_InputFieldFn = jest.fn()
 jest.mock("../../../../../Components/Editor/Fields/InputField", () => (props: any) => {

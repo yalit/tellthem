@@ -5,7 +5,7 @@ import InputField from "../Fields/InputField";
 import CommonEditorFields from "./CommonEditorFields";
 
 
-export const TextEditor:React.FC<EditorProps> = (props) => {
+const TextEditor:React.FC<EditorProps> = (props) => {
     return (
         <>
             <CommonEditorFields {...props}/>
@@ -16,3 +16,5 @@ export const TextEditor:React.FC<EditorProps> = (props) => {
         </>
     )
 }
+
+export default TextEditor

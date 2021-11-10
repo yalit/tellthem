@@ -1,7 +1,7 @@
 import React, {ReactElement, useState} from "react";
 import {Block} from "../Blocks/block";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
-import {TextEditor} from "./Editors/TextEditor";
+import TextEditor from "./Editors/TextEditor";
 
 interface CanvasBlockEditorProps {
     block: Block,
