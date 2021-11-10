@@ -1,6 +1,7 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import {TextEditor} from "../../../../Components/Editor/Editors/TextEditor";
-import {BlockData, getBlock} from "../../../../Components/Blocks/block";
+import TextEditor from "../../../../../Components/Editor/Editors/TextEditor";
+import {getBlock} from "../../../../../Components/Blocks/block";
+
 
 describe('Text Editor', () => {
 
@@ -51,15 +52,13 @@ describe('Text Editor', () => {
         })
 
         let changedContent:string = "New Content"
-        const changeFn = jest.fn((id: string, data: Partial<BlockData>) => {
-            expect(id).toBe(textBlock.id)
-            expect(data).toStrictEqual({_content: changedContent})
-        })
+        const mock_onChangeFn = jest.fn()
 
-        render(<TextEditor block={textBlock} onChange={changeFn} onOpenSection={() => null} sections={{content: true}} />)
+        render(<TextEditor block={textBlock} onChange={mock_onChangeFn} onOpenSection={() => null} sections={{content: true}} />)
         const input = screen.getByRole('textbox', {name: 'content'})
         fireEvent.change(input, {target: {value: changedContent}})
-        expect(changeFn).toBeCalledTimes(1)
+        expect(mock_onChangeFn).toBeCalledTimes(1)
+        expect(mock_onChangeFn).toBeCalledWith(textBlock.id, {_content: changedContent})
     })
 
 
@@ -74,14 +73,13 @@ describe('Text Editor', () => {
             positionUnit: "mm"
         })
 
-        const openSectionFn = jest.fn((sectionStatus: {[key: string]: boolean}) => {
-            expect(sectionStatus).toStrictEqual({content: false})
-        })
+        const mock_openSectionFn = jest.fn()
 
-        render(<TextEditor block={textBlock} onChange={() => null} onOpenSection={openSectionFn} sections={{content: true}} />)
+        render(<TextEditor block={textBlock} onChange={() => null} onOpenSection={mock_openSectionFn} sections={{content: true}} />)
         const caret = screen.getByTestId(`switch-display-menu-item-content`)
         fireEvent.click(caret)
-        expect(openSectionFn).toBeCalledTimes(1)
+        expect(mock_openSectionFn).toBeCalledTimes(1)
+        expect(mock_openSectionFn).toBeCalledWith({content: false})
     })
 
 })
