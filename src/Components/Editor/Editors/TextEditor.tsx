@@ -10,7 +10,7 @@ export const TextEditor:React.FC<EditorProps> = (props) => {
         <>
             <CommonEditorFields {...props}/>
 
-            <SlideMenuItem title='Content' className="menu--item--editor--content" name="content" onOpen={props.onOpenSection} open={props.sections.content === true}>
+            <SlideMenuItem title='Content' className="menu--item--editor--content" name="content" onOpen={props.onOpenSection} open={props.sections.content}>
                 <InputField value={props.block.content} onChange={(_content) => props.onChange(props.block.id,{_content})}  inputName="content"/>
             </SlideMenuItem>
         </>
