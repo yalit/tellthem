@@ -1,6 +1,6 @@
 import React from "react";
 import {EditorProps} from "./EditorProps";
-import SlideMenuItem from "../../Slide/Menu/SlideMenuItem";
+import SlideMenuItem from "../../SlideMenuItem";
 import InputField from "../Fields/InputField";
 import CommonEditorFields from "./CommonEditorFields";
 

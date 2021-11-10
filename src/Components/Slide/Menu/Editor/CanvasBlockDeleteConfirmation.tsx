@@ -1,5 +1,5 @@
-import {Block} from "../Blocks/block";
-import '../Styles/Slide.scss'
+import {Block} from "../../../Blocks/block";
+import '../../../Styles/Slide.scss'
 
 
 export const CanvasBlockDeleteConfirmation:React.FC<{block: Block, onConfirm: () => void, onClose: () => void}> = ({block, onConfirm, onClose}) => {

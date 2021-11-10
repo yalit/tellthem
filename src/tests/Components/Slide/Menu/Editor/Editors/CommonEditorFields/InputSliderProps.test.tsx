@@ -1,10 +1,9 @@
 import {render} from "@testing-library/react";
-import CommonEditorFields from "../../../../../Components/Editor/Editors/CommonEditorFields";
-import {getBlock} from "../../../../../Components/Blocks/block";
-
+import CommonEditorFields from "../../../../../../../Components/Slide/Menu/Editor/Editors/CommonEditorFields";
+import {getBlock} from "../../../../../../../Components/Blocks/block";
 //Mock Slide Menu Item
 const mock_FnSlideInputField = jest.fn()
-jest.mock('../../../../../Components/Editor/Fields/SliderInput', () => (props: any) => {
+jest.mock('../../../../../../../Components/Slide/Menu/Editor/Fields/SliderInput', () => (props: any) => {
     mock_FnSlideInputField(props)
 
     return <div className="mocked-slide-menu-item">Mocked</div>

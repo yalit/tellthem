@@ -1,6 +1,6 @@
 import React from "react";
 import {fireEvent, render, screen} from "@testing-library/react";
-import InputField from "../../../../Components/Editor/Fields/InputField";
+import InputField from "../../../../../../Components/Slide/Menu/Editor/Fields/InputField";
 
 const mock_onChangeFn = jest.fn()
 const testValue = "test"

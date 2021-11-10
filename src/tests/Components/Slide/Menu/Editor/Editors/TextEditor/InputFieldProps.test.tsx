@@ -1,10 +1,10 @@
 import React from "react";
-import {getBlock} from "../../../../../Components/Blocks/block";
+import {getBlock} from "../../../../../../../Components/Blocks/block";
 import {render} from "@testing-library/react";
-import TextEditor from "../../../../../Components/Editor/Editors/TextEditor";
+import TextEditor from "../../../../../../../Components/Slide/Menu/Editor/Editors/TextEditor";
 
 const mock_InputFieldFn = jest.fn()
-jest.mock("../../../../../Components/Editor/Fields/InputField", () => (props: any) => {
+jest.mock("../../../../../../../Components/Slide/Menu/Editor/Fields/InputField", () => (props: any) => {
     mock_InputFieldFn(props)
 
     return <div className="mocked_component">Mocked Component</div>

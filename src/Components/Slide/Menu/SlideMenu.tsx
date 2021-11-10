@@ -3,10 +3,10 @@ import {DRAGGABLE_TYPE_NEW_BLOCK, DraggableBlock} from "./DraggableBlock";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import {Block, ImageBlock, TextBlock} from "../../Blocks/block";
 import {SlideData} from "../SlideData";
-import InputField from "../../Editor/Fields/InputField";
+import InputField from "./Editor/Fields/InputField";
 import SlideMenuItem from "./SlideMenuItem";
 import {IconProp} from "@fortawesome/fontawesome-svg-core";
-import CanvasBlockEditor from "../../Editor/CanvasBlockEditor";
+import CanvasBlockEditor from "./Editor/CanvasBlockEditor";
 
 
 interface SlideMenuProps {

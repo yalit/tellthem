@@ -1,18 +1,18 @@
 import React from "react";
-import {getBlock} from "../../../../../Components/Blocks/block";
+import {getBlock} from "../../../../../../../Components/Blocks/block";
 import {render} from "@testing-library/react";
-import TextEditor from "../../../../../Components/Editor/Editors/TextEditor";
+import TextEditor from "../../../../../../../Components/Slide/Menu/Editor/Editors/TextEditor";
 
 
 const mock_CommonEditorFieldFn = jest.fn()
-jest.mock("../../../../../Components/Editor/Editors/CommonEditorFields", () => (props: any) => {
+jest.mock("../../../../../../../Components/Slide/Menu/Editor/Editors/CommonEditorFields", () => (props: any) => {
     mock_CommonEditorFieldFn(props)
     return <div className="mocked-component">Mocked Component</div>
 })
 
 //Mock Slide Menu Item
 const mock_FnSlideMenuItem = jest.fn();
-jest.mock('../../../../../Components/Slide/Menu/SlideMenuItem', () => (props: any) => {
+jest.mock('../../../../../../../Components/Slide/Menu/SlideMenuItem', () => (props: any) => {
     mock_FnSlideMenuItem(props)
 
     return <div className="mocked-slide-menu-item">Mocked</div>

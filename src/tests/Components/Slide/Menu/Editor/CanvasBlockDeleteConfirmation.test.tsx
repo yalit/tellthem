@@ -1,7 +1,7 @@
 import React from "react";
 import {fireEvent, render, screen} from "@testing-library/react";
-import {CanvasBlockDeleteConfirmation} from "../../../Components/Editor/CanvasBlockDeleteConfirmation";
-import {getBlock} from "../../../Components/Blocks/block";
+import {CanvasBlockDeleteConfirmation} from "../../../../../Components/Slide/Menu/Editor/CanvasBlockDeleteConfirmation";
+import {getBlock} from "../../../../../Components/Blocks/block";
 
 const testBlock = getBlock({
     id: '',

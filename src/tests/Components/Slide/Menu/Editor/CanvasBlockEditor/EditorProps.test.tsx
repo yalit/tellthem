@@ -1,13 +1,12 @@
 import React from "react";
-import {getBlock} from "../../../../Components/Blocks/block";
+import {getBlock} from "../../../../../../Components/Blocks/block";
 import {render} from "@testing-library/react";
-import CanvasBlockEditor from "../../../../Components/Editor/CanvasBlockEditor";
-
+import CanvasBlockEditor from "../../../../../../Components/Slide/Menu/Editor/CanvasBlockEditor";
 const mock_updateBlockFn = jest.fn()
 
 // mock Text Editor
 const mock_textEditorPropsFn = jest.fn()
-jest.mock("../../../../Components/Editor/Editors/TextEditor", () => (props: any) => {
+jest.mock("../../../../../../Components/Slide/Menu/Editor/Editors/TextEditor", () => (props: any) => {
     mock_textEditorPropsFn(props)
 
     return <div className="mocked_component">Text Editor mocked component</div>
@@ -15,7 +14,7 @@ jest.mock("../../../../Components/Editor/Editors/TextEditor", () => (props: any)
 
 // mock Image Editor
 const mock_imgEditorPropsFn = jest.fn()
-jest.mock("../../../../Components/Editor/Editors/ImageEditor", () => (props: any) => {
+jest.mock("../../../../../../Components/Slide/Menu/Editor/Editors/ImageEditor", () => (props: any) => {
     mock_imgEditorPropsFn(props)
 
     return <div className="mocked_component">Text Editor mocked component</div>

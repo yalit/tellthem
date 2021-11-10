@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import CommonEditorFields from "../../../../../Components/Editor/Editors/CommonEditorFields";
-import {getBlock} from "../../../../../Components/Blocks/block";
+import CommonEditorFields from "../../../../../../../Components/Slide/Menu/Editor/Editors/CommonEditorFields";
+import {getBlock} from "../../../../../../../Components/Blocks/block";
 
 const testBlock = getBlock({
     id: "",

@@ -1,6 +1,6 @@
 import React from "react";
 import {fireEvent, render, screen} from "@testing-library/react";
-import SliderInput from "../../../../Components/Editor/Fields/SliderInput";
+import SliderInput from "../../../../../../Components/Slide/Menu/Editor/Fields/SliderInput";
 
 const mock_onChangeFn = jest.fn()
 const testMin = 10

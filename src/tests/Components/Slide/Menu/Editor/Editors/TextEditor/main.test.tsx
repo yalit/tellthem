@@ -1,6 +1,6 @@
 import {fireEvent, render, screen} from "@testing-library/react";
-import TextEditor from "../../../../../Components/Editor/Editors/TextEditor";
-import {getBlock} from "../../../../../Components/Blocks/block";
+import TextEditor from "../../../../../../../Components/Slide/Menu/Editor/Editors/TextEditor";
+import {getBlock} from "../../../../../../../Components/Blocks/block";
 
 
 describe('Text Editor', () => {

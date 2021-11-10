@@ -1,10 +1,10 @@
 import React from "react";
-import {getBlock} from "../../../../../Components/Blocks/block";
+import {getBlock} from "../../../../../../../Components/Blocks/block";
 import {render} from "@testing-library/react";
-import ImageEditor from "../../../../../Components/Editor/Editors/ImageEditor";
+import ImageEditor from "../../../../../../../Components/Slide/Menu/Editor/Editors/ImageEditor";
 
 const mock_CommonEditorFieldFn = jest.fn()
-jest.mock("../../../../../Components/Editor/Editors/CommonEditorFields", () => (props: any) => {
+jest.mock("../../../../../../../Components/Slide/Menu/Editor/Editors/CommonEditorFields", () => (props: any) => {
     mock_CommonEditorFieldFn(props)
     return <div className="mocked-component">Mocked Component</div>
 })

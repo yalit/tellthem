@@ -1,5 +1,5 @@
 import React, {ReactElement, useState} from "react";
-import {Block} from "../Blocks/block";
+import {Block} from "../../../Blocks/block";
 
 import {library} from "@fortawesome/fontawesome-svg-core";
 import {faTrash, faTimes, faEdit} from "@fortawesome/free-solid-svg-icons";

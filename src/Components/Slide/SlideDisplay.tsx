@@ -8,7 +8,7 @@ import {Block} from "../Blocks/block";
 import {SlideMenu} from "./Menu/SlideMenu";
 import {getBlock} from "../Blocks/block";
 import {Modal} from "../Modal";
-import {CanvasBlockDeleteConfirmation} from "../Editor/CanvasBlockDeleteConfirmation";
+import {CanvasBlockDeleteConfirmation} from "./Menu/Editor/CanvasBlockDeleteConfirmation";
 
 type SlideDisplayProps = {
     slide: SlideData,
