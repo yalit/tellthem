@@ -5,6 +5,8 @@ import {library} from "@fortawesome/fontawesome-svg-core";
 import {faTrash, faTimes, faEdit} from "@fortawesome/free-solid-svg-icons";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
 import TextEditor from "./Editors/TextEditor";
+import ImageEditor from "./Editors/ImageEditor";
+
 library.add({
     edit: faEdit,
     times: faTimes,
@@ -29,7 +31,7 @@ const CanvasBlockEditor: React.FC<CanvasBlockEditorProps> = ({block, editBlock, 
 
     const blockEditors: { [type: string]: ReactElement } = {
         'text': <TextEditor block={block} onChange={updateBlock} onOpenSection={updateSectionStatus} sections={sections}/>,
-        'img': <div></div>
+        'img': <ImageEditor block={block} onChange={updateBlock} onOpenSection={updateSectionStatus} sections={sections} />
     }
 
     return (
