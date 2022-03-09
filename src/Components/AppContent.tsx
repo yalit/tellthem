@@ -3,7 +3,7 @@ import {createSlide, SlideData} from "./Slide/SlideData";
 import './Styles/Slide.scss';
 import SlideCover from "./Slide/SlideCover";
 import SlideDisplay from "./Slide/SlideDisplay";
-import {AppSlideActionsType, useAppContext} from "../AppContext";
+import {useAppContext} from "../AppContext";
 
 export const DISPLAY_LIST = 'list'
 export const DISPLAY_DETAIL = 'detail'

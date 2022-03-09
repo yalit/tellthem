@@ -1,6 +1,6 @@
 import React from "react";
 import {fireEvent, render, screen} from "@testing-library/react";
-import SlideMenuItem from "../../../../Components/Slide/Menu/SlideMenuItem";
+import SlideMenuItem from "../../../../../Components/Slide/Menu/SlideMenuItem";
 
 const testTitle = "Slide Title - Test"
 const testName = "testMenu"
