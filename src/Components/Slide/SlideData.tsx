@@ -1,4 +1,4 @@
-import {Block} from "../Blocks/block";
+import {Block, BlockData} from "../Blocks/block";
 import {getBlock} from "../Blocks/block";
 
 const uniqid = require('uniqid');
@@ -6,7 +6,7 @@ const uniqid = require('uniqid');
 export type SlideProps = Readonly<{
     title: string,
     description?: string
-    blocks: Block[]
+    blocks: BlockData[]
 }>
 
 export class SlideData {
