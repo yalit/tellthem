@@ -1,6 +1,7 @@
 import React from "react";
 import {SlideData} from "./SlideData";
 import {FontAwesomeIcon} from "@fortawesome/react-fontawesome";
+import {faTrash} from "@fortawesome/free-solid-svg-icons";
 
 export type SlideCoverProps = {
     slide: SlideData | null,
@@ -18,7 +19,7 @@ const SlideCover:React.FC<SlideCoverProps> = (props:SlideCoverProps) => {
                     <React.Fragment>
                         <div className="slide-cover--title" onClick={() => props.onShow(props.slide as SlideData)} >{props.slide.title}</div>
                         <div className="slide-cover--delete" onClick={() => props.onDelete(props.slide as SlideData)}>
-                            <div className="slide-cover--delete--button"><FontAwesomeIcon icon={"trash"} /></div>
+                            <div className="slide-cover--delete--button"><FontAwesomeIcon icon={faTrash} /></div>
                         </div>
                     </React.Fragment>
                 ):
