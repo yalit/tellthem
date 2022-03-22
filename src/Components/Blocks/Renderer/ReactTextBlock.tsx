@@ -1,6 +1,6 @@
-import React, {LegacyRef} from "react";
-import {ReactStyler} from "./ReactStyler";
+import React from "react";
 import {renderArgs} from "./ReactBlockFactory";
+import getStyle from "./ReactStyler";
 
 const ReactTextBlock =  React.forwardRef<HTMLDivElement, renderArgs> ((props, ref) => {
     const clickBlock = () => {
@@ -8,15 +8,13 @@ const ReactTextBlock =  React.forwardRef<HTMLDivElement, renderArgs> ((props, re
         props.onClick(props.block)
     }
 
-    const getStyle = () => {
-        const reactStyler: ReactStyler = new ReactStyler()
-
-        return reactStyler.getStyle(props.block)
+    const getBlockStyle = () => {
+        return getStyle(props.block)
     }
 
     return (
         <div ref={ref} className={props.className ?? ''}
-             style={{...getStyle(), ...props.style}}
+             style={{...getBlockStyle(), ...props.style}}
              onClick={clickBlock}
         >
             {props.block.content}
